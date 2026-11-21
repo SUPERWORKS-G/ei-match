@@ -3303,7 +3303,7 @@ class Component extends DCLogic {
     'o-prev': ['Previous', 'The company before this one in the list.', ['↑']],
     'o-next': ['Next', 'The company after this one in the list.', ['↓']],
     's-cov': ['For engagement', 'Companies EI will engage with, after every answer.'],
-    's-not': ['Not for engagement', 'Companies left out, after every answer.'],
+    's-not': ['Not for engagement', 'Not on EI’s list, or left out, after every answer.'],
     's-chg': ['Changed in review', 'Answers that went against the automatic answer or suggestion. Each has a written reason.'],
     's-dby': ['Answered in review', 'Answers given where there was no suggestion: a close name with no identifier link. Each has a written reason.'],
     's-list': ['List version', 'The version of EI’s list this run was matched against.'],
@@ -3410,7 +3410,7 @@ class Component extends DCLogic {
       g.style.cssText = 'position:fixed;z-index:' + (c.closest('.pv') ? 205 : 100) + ';margin:0;box-sizing:border-box;pointer-events:none;overflow:hidden;white-space:nowrap;animation:none;transition:none;opacity:1;left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px;height:' + r.height + 'px;font:' + cs.font + ';letter-spacing:' + cs.letterSpacing + ';text-transform:' + cs.textTransform + ';'
       root.appendChild(g); const q = g.getBoundingClientRect(); g.__ox = r.left - q.left; g.__oy = r.top - q.top; g.style.left = (r.left + g.__ox) + 'px'; g.style.top = (r.top + g.__oy) + 'px'
       g.__r = r; g.__cta = isCta(c); g.__right = c.classList.contains('cta'); g.__pad = cs.paddingTop + ' ' + (parseFloat(cs.paddingRight) + (r.width - c.getBoundingClientRect().width) / 2) + 'px'
-      if (g.__cta) { g.__pad = cs.padding; if (keep) g.style.backgroundColor = cs.backgroundColor; const rc = c.querySelector('.cir'), gc = g.querySelector('.cir'); gc.style.transition = 'none'; gc.style.width = rc.getBoundingClientRect().width + 'px'; gc.style.flex = 'none'; g.firstElementChild.style.flex = 'none'; g.style.justifyContent = 'flex-end' }
+      if (g.__cta) { g.__pad = cs.padding; if (keep) g.style.backgroundColor = cs.backgroundColor; const rc = c.querySelector('.cir'), gc = g.querySelector('.cir'); gc.style.transition = 'none'; gc.style.width = rc.getBoundingClientRect().width + 'px'; gc.style.flex = 'none'; g.firstElementChild.style.flex = 'none'; g.style.justifyContent = 'flex-end'; const rs = c.querySelector('.sh'), gs = g.querySelector('.sh'); if (rs && gs) gs.style.transform = getComputedStyle(rs).transform /* round 69, w: the copy's arrow points as the button's did */ }
       else g.style.padding = g.__pad
       return g }
     const spot = g => { const r = g.__r, h = r.height; return { x: Math.round((g.__right ? r.right - h : r.left + (r.width - h) / 2) + g.__ox), y: r.top + g.__oy, h: h } }
@@ -3572,7 +3572,7 @@ class Component extends DCLogic {
   k3Put(i, why) { const a = this.state.ask, two = a.st === 2; this.setState({ why: why, ask: Object.assign({}, a, two ? { ri: i, rs: this.RSN[i] } : { ti: i, theme: Object.keys(Coverage.labels.themes)[i] }) }) }
   k3Set = e => { const a = this.state.ask; if (!a || a.kind !== 'add') return; const raw = e.target.value, t = raw.replace(/'/g, '’').toLowerCase(), two = a.st === 2, N = two ? this.RSN.slice(0, 2) : this.k3Names(false)
     if (!t) { this.setState({ why: '' }); return } const i = N.findIndex(n => n.toLowerCase().indexOf(t) === 0); if (i >= 0) this.k3Put(i, N[i].slice(0, t.length)); else if (two) this.k3Put(2, raw)
-    else { const at = n => { const l = n.toLowerCase(); let k = l.indexOf(t, 1); while (k > 0 && ' -'.indexOf(l[k - 1]) < 0) k = l.indexOf(t, k + 1); return k }, j = N.findIndex(n => at(n) > 0); if (j >= 0) this.k3Put(j, N[j].substr(at(N[j]), t.length)) } } // round 68, e: the start of any word of a theme
+    else { const at = n => { const l = n.toLowerCase(); let k = l.indexOf(t, 1); while (k > 0 && ' -'.indexOf(l[k - 1]) < 0) k = l.indexOf(t, k + 1); return k }, j = N.findIndex(n => at(n) > 0); if (j >= 0) this.k3Put(j, N[j].substr(at(N[j]), t.length)); else { const m = N.findIndex(n => n.toLowerCase().indexOf(t) > 0); if (m >= 0) this.k3Put(m, N[m].substr(N[m].toLowerCase().indexOf(t), t.length)) /* round 69, x: then anywhere in the name */ } } } // round 68, e: the start of any word of a theme
   k3Go(d) { const a = this.state.ask; if (!a || a.kind !== 'add') return; const two = a.st === 2, i = (two ? a.ri : a.ti) + d; if (this._k3) this._k3.focus(); if (i < 0 || i >= this.k3Names(two).length) return; this.snd('tick'); this.k3Put(i, '') }
   k3Step(st) { const a = this.state.ask; if (!a || a.kind !== 'add' || a.st === st) return; const two = a.st === 2, N = this.k3Names(two), i = two ? a.ri : a.ti, w = this.state.why; this.snd('tick'); if (this._k3) this._k3.focus()
     this.setState({ why: '', ask: Object.assign({}, a, { st: st, po: { lab: two ? 'Reason' : 'Engagement theme', cnt: ' · ' + (i + 1) + ' of ' + N.length, rest: two && i === 2 && w ? w : N[i] } }) }) }
@@ -3793,9 +3793,9 @@ class Component extends DCLogic {
     const place = () => { if (this._exH !== h || this._exN !== n) return; if (!el.isConnected || !this.state.ex) { this.exHi(null); return } let r = f.getBoundingClientRect(), c = getComputedStyle(f), rw = f.matches('.row,.lr.go') ? getComputedStyle(f, '::before') : null // a row's form is its own hover ground (rounded, wider than the row): the guide's ground takes exactly that, with nothing around it
       if (rw) { const t = parseFloat(rw.top) || 0, l = parseFloat(rw.left) || 0, b = parseFloat(rw.bottom) || 0, g = parseFloat(rw.right) || 0; r = { left: r.left + l, top: r.top + t, width: r.width - l - g, height: r.height - t - b }; c = rw }
       const half = Math.min(r.width, r.height) / 2, rad = /%$/.test(c.borderTopLeftRadius) ? half : Math.min(parseFloat(c.borderTopLeftRadius) || 0, half), own = !rw && !/^(transparent|rgba\(.*, 0\))$/.test(c.backgroundColor)
-      const g = rw ? 0 : 8, W = innerWidth, H = innerHeight, col = (W - 112 - 352) / 12, sp = d[1].length > 220 ? 6 : 4, wd = Math.min(isRow ? r.width + 32 : sp * col + (sp - 1) * 32 + 32, W - 16) // round 63, a: 8 around the thing; the note's text starts on the thing's left edge, 8 under it; a row's note takes the row's width
+      const g = rw ? 0 : 8, W = innerWidth, H = innerHeight, col = (W - 112 - 352) / 12, sp = d[1].length > 220 ? 6 : 4, wd = Math.min(isRow ? r.width /* round 70, a: a row's note is the hole's box, its words on the row's words */ : sp * col + (sp - 1) * 32 + 24 /* round 71, b: 8 narrower, the note starts on the hole's edge */, W - 16) // round 63, a: 8 around the thing; the note's text starts on the thing's left edge, 8 under it; a row's note takes the row's width
       h.style.left = r.left - g + 'px'; h.style.top = r.top - g + 'px'; h.style.width = r.width + 2 * g + 'px'; h.style.height = r.height + 2 * g + 'px'; h.style.borderRadius = (rad ? rad + g : 0) + 'px'
-      let x = r.left - 16; if (x + wd > W - 40) x = r.left + r.width + 16 - wd; x = Math.max(8, Math.min(x, W - 8 - wd)); q.style.width = wd + 'px'; q.style.left = x + 'px'; const qh = q.offsetHeight, below = r.top + r.height + g + 8; q.style.top = (below + qh <= H - 8 ? below : Math.max(8, r.top - g - 8 - qh)) + 'px'; q.dataset.ink = this.state.ex === 2 ? '1' : '0'; h.dataset.fill = own ? '0' : '1'; h.dataset.ring = rw ? '0' : '1'; requestAnimationFrame(place) } // a thing with a ground of its own (a solid button, an open filter) keeps it and gets the 8 around it only
+      q.style.paddingLeft = isRow ? '' : '8px'; let x = r.left - (isRow ? 0 : 8); if (x + wd > W - 40) x = r.left + r.width + (isRow ? 16 : 8) - wd; x = Math.max(8, Math.min(x, W - 8 - wd)); q.style.width = wd + 'px'; q.style.left = x + 'px'; const qh = q.offsetHeight, below = r.top + r.height + g + 8; q.style.top = (below + qh <= H - 8 ? below : Math.max(8, r.top - g - 8 - qh)) + 'px'; q.dataset.ink = this.state.ex === 2 ? '1' : '0'; h.dataset.fill = own ? '0' : '1'; h.dataset.ring = rw ? '0' : '1'; requestAnimationFrame(place) } // a thing with a ground of its own (a solid button, an open filter) keeps it and gets the 8 around it only
     place(); if (this._exRead) { h.offsetWidth; q.offsetWidth; h.dataset.on = '1'; q.dataset.on = '1' } }
   onDragOver = e => { e.preventDefault(); if (this.state.step === 'drop' && !this.state.file && !this.state.drag) this.setState({ drag: true }) }
   onDragLeave = e => { if (this.state.drag && (!e.relatedTarget || !this._root || !this._root.contains(e.relatedTarget))) this.setState({ drag: false }) }
@@ -3869,7 +3869,7 @@ class Component extends DCLogic {
     if (d && d.out) { v.why = 'On EI’s list · left out.'; v.outcomeLong = 'Not for engagement'; v.by = 'On EI’s list · left out · ' + d.who + ' · ' + d.time; if (inSt) v.undoText = 'Include' }
     else if (d && d.link && e) { v.why = 'Linked by a person: same company as ' + e.name + '.'; v.outcomeLong = 'For engagement'; v.by = 'Linked by a person · ' + d.who + ' · ' + d.time }
     else if (d && d.add) { v.why = 'Added to EI’s list in this run.'; v.outcomeLong = 'For engagement'; v.by = 'Added to EI’s list in this run · ' + d.who + ' · ' + d.time }
-    if (inSt && !frozen && !this.ro() && this.result(c) === 'covered' && !!c.ei) { v.chgText = 'Leave out'; v.changeText = 'Leave out'; v.canChange = true; v.showChange = !asking; v.change = () => this.openAsk(c, 'not'); if (asking && !a.kind) v.askLabel = 'Why leave it out?' }
+    if ((inSt || c.group === 'covered') /* round 70, l: the same words wherever the company is opened */ && !frozen && !this.ro() && this.result(c) === 'covered' && !!c.ei) { v.chgText = 'Leave out'; v.changeText = 'Leave out'; v.canChange = true; v.showChange = !asking; v.change = () => this.openAsk(c, 'not'); if (asking && !a.kind) v.askLabel = 'Why leave it out?' }
     if (this.rowActs) this.rowActs(c, v, asking, a)
     return v }
   trailParts(c) { const p = this.trailParts0(c), d0 = this.state.dec[c.id], d = d0 && d0.out && d0.prev ? d0.prev : d0, e = this.eiOf(c), T = t => ({ t: t, c: 's17' }), run = Coverage.run, L = Coverage.labels
@@ -3951,7 +3951,7 @@ class Component extends DCLogic {
       onOver: this.onOver, onDragOver: this.onDragOver, onDragLeave: this.onDragLeave, onDrop: this.onDrop, themeFlip: this.themeFlip, exFlip: this.exFlip, focusFlip: this.focusFlip, fire: this.fire, histFlip: this.histFlip, inkFlip: this.inkFlip, inkLabel: 'Signature colour: ' + (this.SGC[s.sgc] || ['', 'ink'])[1], sigKey: 'sg' + s.sgc, sigW: s.sw && s.sw === s.step && s.back == null ? '1' : '0', hon: '0', hOn: false, tabsOn: true, hf: '0', hx: '0', backOn: '0', sentOn: '0', hPressed: false, hbText: '', hbNote: '', hstops: [], pathOn: false,
       onQ: this.onQ, onWhy: this.onWhy, onWhyKey: this.onWhyKey, confirmAsk: this.confirmAsk, cancelAsk: this.cancelAsk, removeFile: this.removeFile, reopen: this.reopen, onePrev: this.onePrev, oneNext: this.oneNext, oneBack: this.oneBack }
     const blank = { key: 'none', parts: [] }
-    if (!s.ok || !C) return Object.assign(base, { fm: '0', view: 'panel', tone: s.blocks ? 'quiet' : '', statusOff: '0', client: '', exName: '', exText: '', say: '', note: '', isPanel: true, hasQ: true, q1: 'Drop a file.', hasFig: true, fig: '0', cap: 'Lines · no file yet', red: '0', figEx: 'drop', canRemove: false, hasSig: false, lab: 'Step 1 of 4', lab2: 'Drop', panelKey: 'p0', rtOff: '1', exOn: '0', exPressed: false, exCaps: [], fpLabel: 'Focus', fpKey: 'F', fpOn: false, ctaText: 'Use the sample file', ctaOff: false, ctaHint: '', statusText: 'No file yet', statusDot: 'dot none', tabs: [], groups: [], rows: [], ledger: [], one: blank })
+    if (!s.ok || !C) return Object.assign(base, { fm: '0', view: 'panel', tone: s.blocks ? 'quiet' : '', statusOff: '0', client: '', exName: '', exText: '', say: '', note: '', isPanel: true, hasQ: true, q1: 'Drop the client’s file.', hasFig: true, fig: '0', cap: 'Lines · no file yet', red: '0', figEx: 'drop', canRemove: false, hasSig: false, lab: 'Step 1 of 4', lab2: 'Drop', panelKey: 'p0', rtOff: '1', exOn: '0', exPressed: false, exCaps: [], fpLabel: 'Focus', fpKey: 'F', fpOn: false, ctaText: 'Use the sample file', ctaOff: false, ctaHint: '', statusText: 'No file yet', statusDot: 'dot none', tabs: [], groups: [], rows: [], ledger: [], one: blank })
 
     const L = C.labels, run = C.run, st = C.stats, n = this.left(), frozen = this.frozen(), tot = this.totals(), cta = this.cta(), step = s.step
     const num = x => String(x).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -3967,13 +3967,13 @@ class Component extends DCLogic {
     if (oc) { const e = this.eiOf(oc); one.stLine = e ? 'Status: ' + e.status : ''; one.stDot = e ? ' · ' : ''; if (e && !oc.ei) one.flagLine = 'EI’s flag: ' + e.flags.map(f => f + ' ' + L.flags[f]).join(', '); one.sugEx = oc.suggest ? 'r-sug' : 'r-nosug' }
 
     // the left panel: a label, then a question and a figure, or two large words; one serif sentence at the foot
-    const fst = step === 'review' && s.flt && s.flt[0] !== 'g' ? 'sign' : step // round 68, s: the frame follows where the list was opened from
+    const fst = step === 'review' && s.flt ? (s.flt[0] === 'g' ? 'drop' : 'sign') : step // rounds 68 (s) and 69 (d): the frame follows where the list was opened from, Sign or Drop
     const P = { lab: 'Step ' + (this.STEPS.indexOf(fst) + 1) + ' of 4', lab2: step === 'send' && this.state.sent ? 'sent' : step, hasQ: false, hasFig: false, red: '0', canRemove: false, say: '', note: '', figEx: 'step', hasSig: false, sig: '' }
     let ledHead = '', ledger = []
     const lr = (exk, k, v, sub, o) => Object.assign({ ex: exk, cls: 'lr gn', k: k, kc: 'd s36', v: v, vc: 's17', sub: sub || '', lines: [], nogo: true }, o || {})
     const kv = (exk, k, v, o) => Object.assign({ ex: exk, cls: 'lr kv gn', k: k, kc: 'gr', v: v, vc: 's17', sub: '', lines: [], nogo: true }, o || {})
     const open = k => ({ cls: 'lr go gn', nogo: false, go: () => this.openFlt(k) })
-    if (step === 'drop' && !s.file) Object.assign(P, { hasQ: true, q1: s.drag ? 'Let go.' : 'Drop a file.', hasFig: true, fig: '0', cap: 'Lines · no file yet', figEx: 'drop', say: 'Drag in a holdings file.', note: 'Demo: any file loads one invented sample. Yours is not read.' })
+    if (step === 'drop' && !s.file) Object.assign(P, { hasQ: true, q1: s.drag ? 'Let go.' : 'Drop the client’s file.', hasFig: true, fig: '0', cap: 'Lines · no file yet', figEx: 'drop', say: 'Drag in a holdings file.', note: 'Demo: any file loads one invented sample. Yours is not read.' })
     else if (step === 'drop') {
       Object.assign(P, { hasQ: true, q1: 'What was read?', hasFig: true, fig: num(st.rows), cap: 'Lines · ' + run.file, figEx: 'f-rows', canRemove: !frozen, say: st.look + ' companies to review.', note: dropNote })
       ledHead = 'In the file'
@@ -3981,13 +3981,13 @@ class Component extends DCLogic {
       ledger = [lr('f-funds', num(st.funds), 'Funds', 'of the client', s.back == null ? { cls: 'lr go gn', nogo: false, go: this.fvFlip } : {}), lr('f-secs', num(st.securities), 'Securities', 'in ' + num(st.companies) + ' companies', dOpen('gs')), lr('f-aside', num(st.setAside), 'Lines set aside', 'cash and fees, no identifier', dOpen('ga')),
         lr('g-covered', num(st.covered), 'Companies for engagement', 'same ISIN · automatic', dOpen('gc')), lr('g-look', num(st.look), 'Companies to review', 'a person decides', dOpen('gl')), lr('g-not', num(st.not), 'Companies not for engagement', 'no match · automatic', dOpen('gn'))]
       if (s.fv) { ledHead = 'The five funds'; ledger = this.val().funds.map(f => lr('f-funds', f.name, num(f.holdings) + ' holdings', 'in the file', { cls: 'lr fx gn', kc: 's17' })) }
-    } else if (step === 'review' && s.flt) Object.assign(P, { lab2: s.flt[0] === 'g' ? 'Review · as read' : fst, hasQ: true, q1: s.flt[0] === 'g' ? 'Check the list.' : this.FLT[s.flt][0] + '.', hasFig: true, fig: num(all.length), cap: this.FLT[s.flt][0], figEx: 's-open', say: this.roNow() ? 'Read only.' : 'Open any one.', note: s.flt === 'gs' ? 'Each security is counted once.' : s.flt === 'ga' ? 'Cash and fees carry no identifier.' : 'Each company shows its trail.' })
+    } else if (step === 'review' && s.flt) Object.assign(P, { lab2: fst, hasQ: true, q1: s.flt[0] === 'g' ? 'Check the list.' : this.FLT[s.flt][0] + '.', hasFig: true, fig: num(all.length), cap: s.flt[0] === 'g' ? this.FLT[s.flt][0] : all.length === 1 ? 'Company' : 'Companies' /* round 69, c: the heading names the list, the label says what is counted */, figEx: 's-open', say: this.roNow() ? 'Read only.' : 'Open any one.', note: s.flt === 'gs' ? 'Each security is counted once.' : s.flt === 'ga' ? 'Cash and fees carry no identifier.' : 'Each company shows its trail.' })
     else if (step === 'review') Object.assign(P, { hasQ: true, q1: n ? 'To review.' : 'All answered.', hasFig: true, fig: String(n), red: n ? '1' : '0', cap: 'Left to decide · of ' + st.look, figEx: 'count', say: frozen ? 'Signed.' : n ? 'Answer each.' : 'Ready to sign.', note: frozen ? 'Nothing can change now.' : n ? 'Signing unlocks at zero.' : 'Every company has an answer.' })
     else if (step === 'sign') {
       if (frozen) Object.assign(P, { hasQ: true, q1: 'Signed.', hasFig: true, fig: num(tot.cov), cap: 'Companies · ' + this.val().text, figEx: 'record', hasSig: true, sig: s.signed.who, say: s.signed.at + '.', note: s.signed.who + ' · ' + this.ROLE })
       else Object.assign(P, { hasQ: true, q1: 'Ready to sign?', hasFig: true, fig: num(st.companies), cap: 'Companies · every one answered', figEx: 'f-co', say: 'Check before you sign.', note: 'Signing freezes the run and makes the client’s file.' })
       ledHead = frozen ? 'What was signed' : 'What you are signing'
-      ledger = [lr('s-open', num(tot.cov), 'For engagement', 'companies EI will engage with', open('cov')), lr('s-open', num(tot.not), 'Not for engagement', 'companies left out', open('not')), lr('s-open', num(tot.chg), 'Changed in review', 'answers against the automatic answer', open('chg')), lr('s-open', num(tot.dby), 'Answered in review', 'answers with no suggestion', open('dby'))]
+      ledger = [lr('s-open', num(tot.cov), 'For engagement', 'companies EI will engage with', open('cov')), lr('s-open', num(tot.not), 'Not for engagement', 'not on EI’s list, or left out', open('not')), lr('s-open', num(tot.chg), 'Changed in review', 'answers against the automatic answer', open('chg')), lr('s-open', num(tot.dby), 'Answered in review', 'answers with no suggestion', open('dby'))]
       const V = this.val(), fv = s.fv && !frozen
       if (!frozen) ledger.splice(1, 0, lr('s-funds', V.pct, 'of the portfolio, by value', num(V.covered) + ' of ' + num(V.holdings) + ' holdings · open the five funds', { cls: 'lr go gn', nogo: false, go: this.fvFlip }))
       // round 60, a: before signing, Covered is shown by status, one row of three cells; each opens its list and switches between Include and Leave out. With companies added to EI's list, the two review rows and theirs share one row of the same form, so Sign never scrolls
@@ -4172,8 +4172,11 @@ class Component extends DCLogic {
 /* the record keeps the height of its three lines, so a shorter entry moves no row (Sign to Signed) */
 .lr.kv[data-ex="record"]>:last-child{min-height:calc(3 * var(--ln, 24px));}
 </style>
+<style>/* round 69, n: an open company's answer is as wide as its words, up to the left half; it breaks only when the half is too narrow */
+.az .res>.d{width:max-content;max-width:calc((100vw - 2 * var(--m) - 48px) / 2);}
+</style>
 <script>(function(){
-var T={'t-drop':['01','Drop','Drop a file.','Read against EI’s list.'],'t-review':['02','Review','Check the list.','A few need your answer.'],'t-sign':['03','Sign','Sign off.','Read it, then sign.'],'t-send':['04','Send','Send to the client.','A link and a code.']};
+var T={'t-drop':['01','Drop','Start with the client’s file.','Read against EI’s list.'],'t-review':['02','Review','Check the list.','A few need your answer.'],'t-sign':['03','Sign','Sign off.','Read it, then sign.'],'t-send':['04','Send','Send to the client.','A link and a code.']};
 var cur=null,el=null;
 function h1(t){return '<span class="d s36" style="display:block;white-space:nowrap">'+t+'</span>'}
 function dig(t,o){var n=o?5:+t[0];return [1,2,3,4].map(function(i){var g=i===n?'span':i<n?'b':'i';return '<'+g+'>'+i+'</'+g+'>'}).join('')}
@@ -4191,7 +4194,7 @@ window.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.t
 window.addEventListener('keydown',function(e){if(!el||e.metaKey||e.ctrlKey||e.altKey||/^(Shift|Meta|Control|Alt|Tab)$/.test(e.key))return;gone();e.stopPropagation();e.preventDefault()},true);
 window.addEventListener('pointerdown',function(e){if(el){gone();e.stopPropagation();e.preventDefault();window.__eiSw=1}},true);
 window.addEventListener('click',function(e){if(window.__eiSw){window.__eiSw=0;e.stopPropagation();e.preventDefault()}},true);
-function tick(){requestAnimationFrame(tick);if(navigator.webdriver&&!window.__eiIntroOn)return;var t=document.querySelector('.cv .tab[aria-current="step"]'),k=t?t.getAttribute('data-ex'):null;if(k&&k!==cur&&!window.__eiHold){var o=k==='t-drop'&&cur==='t-send'&&Date.now()-nr<3000;cur=k;show(k,o)}}
+function tick(){requestAnimationFrame(tick);if(navigator.webdriver&&!window.__eiIntroOn)return;var t=document.querySelector('.cv .tab[aria-current="step"]'),k=t?t.getAttribute('data-ex'):null;if(k&&k!==cur&&!window.__eiHold){var o=k==='t-drop'&&cur==='t-send'&&Date.now()-nr<3000,bk=!o&&cur&&T[cur]&&T[k]&&+T[k][0]<+T[cur][0];cur=k;if(bk)clean();else show(k,o)}} /* round 70, e: no intro on a step walked back to */
 tick()})();</script>
 </body>
 </html>
