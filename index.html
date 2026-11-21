@@ -3325,7 +3325,7 @@ class Component extends DCLogic {
     'r-st': ['Status', 'Where this company stands on EI’s list: Engaged, Planned or Flagged. It is never shown to the client.'],
     'r-same': ['Same company as…', 'For a match that was missed. Find the company on EI’s list this one belongs to, and give a reason. It becomes For engagement, linked by us, with that company’s status. Undone until sign-off.'],
     'r-add': ['Add to EI’s list', 'For a company new to EI. Choose its engagement theme and a reason. It becomes For engagement, with the status Planned, and the addition is recorded. Undone until sign-off.'],
-    how: ['How matching works', 'The matching in full, in technical terms: the rules engine, the AI module, and how the two work together. In part 1, “Run an example” plays a sample holding through the tests and stops on its answer.', ['M']],
+    how: ['How matching works', 'The matching in full, in technical terms: the rules engine, the AI module, and how the two work together. In part 1, “Run an example” plays a sample holding through the rules, the AI module and the thresholds, and stops on its answer record.', ['M']],
     't-drop': ['Step 1 · Drop', 'Bring in the client’s holdings file.'],
     't-review': ['Step 2 · Review', 'Answer the companies to review, and check the rest.'],
     't-sign': ['Step 3 · Sign', 'One named person signs. It unlocks when nothing is left to decide.'],
@@ -3405,9 +3405,9 @@ class Component extends DCLogic {
     const isCta = el => { const c = el.querySelector('.cir'); return !!c && getComputedStyle(c).display !== 'none' }
     const rectOf = el => { const r = el.getBoundingClientRect(), st = el.classList.contains('b') && !dead(el) && el.matches(':hover') ? ST : 0; return { left: r.left - st, right: r.right + st, top: r.top, width: r.width + 2 * st, height: r.height } }
     const tr = (g, v) => { g.style.transition = v }
-    const ghost = (c, keep) => { const r = rectOf(c), cs = getComputedStyle(c), g = c.cloneNode(true), root = c.closest('.cv') || document.body
+    const ghost = (c, keep) => { const r = rectOf(c), cs = getComputedStyle(c), g = c.cloneNode(true), root = c.closest('.cv') || document.body, lgz = !!c.closest('.pv.lg') /* round 74, p: above the sign-in (210) */
       g.removeAttribute('data-ex'); g.removeAttribute('id'); g.setAttribute('aria-hidden', 'true'); g.tabIndex = -1; g.classList.add('gh')
-      g.style.cssText = 'position:fixed;z-index:' + (c.closest('.pv') ? 205 : 100) + ';margin:0;box-sizing:border-box;pointer-events:none;overflow:hidden;white-space:nowrap;animation:none;transition:none;opacity:1;left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px;height:' + r.height + 'px;font:' + cs.font + ';letter-spacing:' + cs.letterSpacing + ';text-transform:' + cs.textTransform + ';'
+      g.style.cssText = 'position:fixed;z-index:' + (lgz ? 215 : c.closest('.pv') ? 205 : 100) + ';margin:0;box-sizing:border-box;pointer-events:none;overflow:hidden;white-space:nowrap;animation:none;transition:none;opacity:1;left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px;height:' + r.height + 'px;font:' + cs.font + ';letter-spacing:' + cs.letterSpacing + ';text-transform:' + cs.textTransform + ';'
       root.appendChild(g); const q = g.getBoundingClientRect(); g.__ox = r.left - q.left; g.__oy = r.top - q.top; g.style.left = (r.left + g.__ox) + 'px'; g.style.top = (r.top + g.__oy) + 'px'
       g.__r = r; g.__cta = isCta(c); g.__right = c.classList.contains('cta'); g.__pad = cs.paddingTop + ' ' + (parseFloat(cs.paddingRight) + (r.width - c.getBoundingClientRect().width) / 2) + 'px'
       if (g.__cta) { g.__pad = cs.padding; if (keep) g.style.backgroundColor = cs.backgroundColor; const rc = c.querySelector('.cir'), gc = g.querySelector('.cir'); gc.style.transition = 'none'; gc.style.width = rc.getBoundingClientRect().width + 'px'; gc.style.flex = 'none'; g.firstElementChild.style.flex = 'none'; g.style.justifyContent = 'flex-end'; const rs = c.querySelector('.sh'), gs = g.querySelector('.sh'); if (rs && gs) gs.style.transform = getComputedStyle(rs).transform /* round 69, w: the copy's arrow points as the button's did */ }
@@ -3431,7 +3431,7 @@ class Component extends DCLogic {
     const circle = (c, act) => { const inAct = !!c.closest('.act'), inLg = !inAct && !!c.closest('.pv.lg'), g = ghost(c, 1); c.style.opacity = '0'; g.offsetWidth; shut(g, D, M)
       setTimeout(() => { act(); twice(() => { const n = inAct ? next(c, true) : inLg ? lgNext(c) : (c.isConnected && (c.style.opacity = ''), null)
         if (!n) { tr(g, 'transform 250ms cubic-bezier(.4,0,.2,1),opacity 150ms ease 100ms'); g.style.transform = 'scale(0)'; g.style.opacity = '0'; setTimeout(() => g.remove(), 270); busy = 0; return }
-        n.style.opacity = ''; const g2 = ghost(n); n.style.opacity = '0'; g2.style.opacity = '0'; shut(g2, 0, M)
+        n.style.opacity = ''; const g2 = ghost(n); if (inLg) g2.style.zIndex = g.style.zIndex; n.style.opacity = '0'; g2.style.opacity = '0'; shut(g2, 0, M)
         const a = spot(g), b = spot(g2), far = Math.abs(a.x - b.x) > 1 || Math.abs(a.y - b.y) > 1, wait = far ? D : LEAD
         if (far) { tr(g, 'left ' + D + 'ms ' + M + ',top ' + D + 'ms ' + M); g.style.left = b.x + 'px'; g.style.top = b.y + 'px' }
         setTimeout(() => { g2.style.opacity = '1'; tr(g, 'opacity 150ms ease'); g.style.opacity = '0'; setTimeout(() => g.remove(), 170); g2.offsetWidth; open(g2, D, M); done(n, g2, D + 40) }, wait) }) }, D + REST) }
@@ -3627,14 +3627,17 @@ class Component extends DCLogic {
       ['Always', 'A person signs', '', ['Test 1 always decides alone. AI never signs: a person does.'], '', 'Sign-off freezes the file, the list version and both thresholds. A later change never rewrites a signed file.']] }]
   HWIN = [['The client’s portfolio: ', 'every fund and every security the client holds.'], ['EI’s list: ', 'every company for engagement, in its latest version.'], ['The issuer record: ', 'who issued each security, and who owns the issuer.']]
   HW0 = { x1: false, xr: '0', rk: 'r', st: '0', pk: 'hw', intro: false, part: false, items: [], det: [], inp: [], tabs: [] }
-  // round 73, x: three sample holdings, one per outcome. path: the tests shown, in order (the last gives the answer); say: what each finds
+  // round 74, w: three sample holdings, through the whole engine. steps: [part, item, what it finds]; the last gives the answer. rec: the answer record
   HX = [
-    { hold: 'Uldmark Shipping · ZZ3585993043', path: [0, 1, 2], say: ['Valid. On to the next step.', 'One security, one issuer: one company. On to the tests.', 'Yes: this ISIN is on EI’s list. Stops here.'] },
-    { hold: 'Quintas Telecom ADR · ZZ1025855894', path: [0, 1, 2, 3], say: ['Valid. On to the next step.', 'One security, one issuer: one company. On to the tests.', 'No. This ISIN is not on EI’s list. On to the next test.', 'Yes: the issuer is on EI’s list. Stops here.'] },
-    { hold: 'Fjellmar Industries · ZZ8196805458', path: [0, 1, 2, 3, 4, 5], say: ['Valid. On to the next step.', 'One security, one issuer: one company. On to the tests.', 'No. This ISIN is not on EI’s list. On to the next test.', 'No. Neither the issuer nor its parent is on EI’s list. On to the next test.', 'No. No name on EI’s list has the same core. On to the next test.', 'Every test has run and none was true. Stops here.'] }]
-  HXMS = 1800
-  hxGo = () => { const s = this.state; if (!s.hw || s.hwP !== 1 || (s.hwX && s.hwX.play)) return; clearTimeout(this._hxT); this.snd('tick'); const n = s.hwXn + 1; this.setState({ hwXn: n }); this.hxAt(s.hwXn % 3, 0, n) }
-  hxAt(k, j, id) { const e = this.HX[k], last = j === e.path.length - 1, a = this.state.hwI.slice(); a[0] = e.path[j]; this.setState({ hwI: a, hwX: { k: k, j: j, id: id, play: !last } }); if (!last) this._hxT = setTimeout(() => this.hxAt(k, j + 1, id), this.HXMS) }
+    { hold: 'Uldmark Shipping · ZZ3585993043', steps: [[1, 0, 'Valid. On to the next step.'], [1, 1, 'One security, one issuer: one company. On to the tests.'], [1, 2, 'Yes: this ISIN is on EI’s list. For engagement, automatically.']],
+      rec: ['verdict:    for engagement · automatic', 'confidence: 1.00 · rule', 'reason:     The same ISIN is on EI’s list.', 'evidence:   EI’s list, line Uldmark Shipping', '            ZZ3585993043', 'rule_id:    R1.3 same-isin', 'list:       2026.11', 'time:       0.4 ms'] },
+    { hold: 'Lysa Dairy ADR · ZZ7042136314', steps: [[1, 0, 'Not valid: the check digit fails. Set aside for the AI module.'], [2, 0, 'The column “Sec. code” is read as ISINs by its content. This code fails its check digit.'], [2, 1, 'Two digits swapped: ZZ7042133614 passes the check digit and is in the issuer record. The repair is shown.'], [2, 2, 'A depositary receipt: traced to the share it stands for, issued by Grevik Dairy AS.'], [2, 3, 'Grevik Dairy AS → Grevik Dairy Holding AS → Grevik Nordic AB → Grevik Foods, on EI’s list. Three levels up.'], [2, 4, 'The file’s Lysa Dairy was renamed Grevik Dairy in May 2025: on the portfolio’s date, the same company.'], [3, 0, '0.97 is above the upper threshold, 0.90: For engagement, automatically.']],
+      rec: ['verdict:    for engagement · automatic', 'confidence: 0.97', 'reason:     A receipt for a company owned', '            three levels below Grevik Foods.', 'repair:     ZZ7042136314 → ZZ7042133614', 'evidence:   Lysa Dairy ADR', '            → Grevik Dairy AS', '            → Grevik Dairy Holding AS', '            → Grevik Nordic AB', '            → Grevik Foods · EI’s list', 'model:      ei-match 2.3', 'list:       2026.11 · thresholds 0.50/0.90', 'time:       2.8 s'] },
+    { hold: 'Fennor Bank Invest · ZZ5529081470', steps: [[1, 0, 'Valid. On to the next step.'], [1, 1, 'One security, one issuer: one company. On to the tests.'], [1, 2, 'No. This ISIN is not on EI’s list. On to the next test.'], [1, 3, 'No. Neither the issuer nor its parent is on EI’s list. On to the next test.'], [1, 4, 'Yes: “fennor bank invest” holds every word of “fennor bank”. To review, with no suggestion. On to the AI module.'], [2, 5, 'Its name reads like a fund; the issuer record says an ordinary share. A company: the name comparison goes on.'], [2, 6, 'Close to Fennor Bank, but no alias or former name links them. Not sure: 0.64, with its reason.'], [2, 7, 'Looked up first, before any model: no earlier answer for this ISIN. The answer a person gives will be kept.'], [2, 8, 'Value held: DKK 38 million. Unsure and large: near the top of the review queue.'], [3, 1, '0.64 is between 0.50 and 0.90: To review, with the evidence, placed in the queue by stakes.']],
+      rec: ['verdict:    to review', 'confidence: 0.64', 'reason:     Close in name to Fennor Bank;', '            a company, not a fund; no', '            ownership link to it found.', 'evidence:   R1.5 close name · fennor bank', '            type: ordinary share', '            memory: no earlier answer', 'queue:      by stakes · DKK 38 million', 'model:      ei-match 2.3', 'list:       2026.11 · thresholds 0.50/0.90', 'time:       1.9 s'] }]
+  HXMS = 1500
+  hxGo = () => { const s = this.state; if (!s.hw || (s.hwP !== 1 && !s.hwX) || (s.hwX && s.hwX.play)) return; clearTimeout(this._hxT); this.snd('tick'); const n = s.hwXn + 1; this.setState({ hwXn: n }); this.hxAt(s.hwXn % 3, 0, n) }
+  hxAt(k, j, id) { const e = this.HX[k], st = e.steps[j], last = j === e.steps.length - 1, a = this.state.hwI.slice(); a[st[0] - 1] = st[1]; this.setState({ hwP: st[0], hwI: a, hwX: { k: k, j: j, id: id, play: !last } }); if (!last) this._hxT = setTimeout(() => this.hxAt(k, j + 1, id), this.HXMS) }
   hxEnd() { clearTimeout(this._hxT); if (this.state.hwX) this.setState({ hwX: null }) }
   hwGo(p) { if (!true) { const sc = document.querySelector('.hwp .pvs'); if (sc && p > 0) { this.snd('tick'); sc.scrollTo({ top: sc.clientHeight, behavior: window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }) } return } if (p === this.state.hwP) return; this.hxEnd(); this.snd('tick'); this.setState({ hwP: p }) }
   hwPick(i) { this.hxEnd(); const s = this.state, P = s.hwP; if (P < 1 || i < 0 || i >= this.HW[P - 1].items.length || i === s.hwI[P - 1]) return; this.snd('tick'); const a = s.hwI.slice(); a[P - 1] = i; this.setState({ hwI: a }) }
@@ -3646,13 +3649,13 @@ class Component extends DCLogic {
     const i = s.hwI[P - 1], it = part.items[i], T = (t, c) => ({ t: t, c: c || 's17' }), n = part.items.length
     v.head = 'Part ' + P + ' of 3 · ' + part.t; v.sub = part.sub; v.hasInp = P === 1; v.inp = P === 1 ? this.HWIN.map(x => ({ k: x[0], v: x[1] })) : []
     v.items = part.items.map((x, k) => ({ n: P + '.' + (k + 1), name: x[0], tag: x[1], cur: k === i ? 'true' : 'false', go: () => this.hwPick(k) }))
-    v.ihead = P + '.' + (i + 1) + ' · ' + it[0]; v.tgt = P > 1 ? 'Design targets · not yet measured' : ''
+    v.ihead = P + '.' + (i + 1) + ' · ' + it[0]; v.tgt = P > 1 ? 'Design targets' : ''
     if (it[2]) v.det.push({ k: 'Rule', vs: [T(it[2], 'hmc')] }); if (it[3].length) v.det.push({ k: 'In words', vs: it[3].map(x => T(x)) }); if (it[4]) v.det.push({ k: 'Gives', vs: [T(it[4])] }); v.det.push({ k: 'Spec', vs: [T(it[5])] })
-    const X = P === 1 ? s.hwX : null, ex = X ? this.HX[X.k] : null; v.det.forEach(d => { d.c = 'lr kv gn' })
-    if (ex) v.det = v.det.filter(d => d.k === 'Gives' || d.k === (it[2] ? 'Rule' : 'In words')) // during a run: the test's rule (Group: its words), what it gives, the example; In words and Spec come back at rest
-    if (ex) v.det.push({ k: 'Example ' + (X.k + 1) + ' of 3', c: 'lr kv gn hxr', vs: [T(ex.hold), T('A sample holding, not from this run.', 's17 gr'), T(ex.say[X.j], 's17 hxb')] })
-    v.items.forEach((r, k) => { r.x = ex && k === ex.path[X.j] ? (X.play ? '1' : '2') : '0' })
-    v.x1 = P === 1; v.xr = ex ? '1' : '0'; v.rk = ex ? 'x' + X.id + '-' + X.j : 'r'; v.xOff = X && X.play ? 'true' : 'false'; v.xT = s.hwXn - (X && X.play ? 1 : 0) > 0 ? 'Run another' : 'Run an example'; v.xGo = this.hxGo
+    const X = s.hwX && this.HX[s.hwX.k].steps[s.hwX.j][0] === P ? s.hwX : null, ex = X ? this.HX[X.k] : null, xs = ex ? ex.steps[X.j] : null, xEnd = ex && X.j === ex.steps.length - 1; v.det.forEach(d => { d.c = 'lr kv gn' })
+    if (ex) v.det = xEnd ? [{ k: 'Record', c: 'lr kv gn hxd', vs: [T(ex.rec.join('\n'), 'hmc hxc')] }] : v.det.filter(d => d.k === 'Gives' || d.k === (it[2] ? 'Rule' : 'In words')) // during a run: the test's rule (Group: its words), what it gives, the example; In words and Spec come back at rest
+    if (ex) v.det.push({ k: 'Example ' + (X.k + 1) + ' of 3', c: 'lr kv gn hxr', vs: [T(ex.hold), T(xs[2], 's17 hxb')] })
+    v.items.forEach((r, k) => { r.x = ex && k === xs[1] ? (X.play ? '1' : '2') : '0' })
+    v.x1 = P === 1 || !!ex; v.xr = ex ? '1' : '0'; v.rk = ex ? 'x' + X.id + '-' + X.j : 'r'; v.xOff = X && X.play ? 'true' : 'false'; v.xT = s.hwXn - (X && X.play ? 1 : 0) > 0 ? 'Run another' : 'Run an example'; v.xGo = this.hxGo
     v.count = (i + 1) + ' of ' + n; v.noPrev = i === 0 ? 'true' : 'false'; v.noNext = i === n - 1 ? 'true' : 'false'; v.prev = () => this.hwStep(-1); v.nx = () => this.hwStep(1); return v }
   totals() {
     let cov = 0, not = 0, chg = 0, dby = 0
@@ -4187,6 +4190,9 @@ class Component extends DCLogic {
 .rcm{display:block;margin-top:8px;}
 /* the record keeps the height of its three lines, so a shorter entry moves no row (Sign to Signed) */
 .lr.kv[data-ex="record"]>:last-child{min-height:calc(3 * var(--ln, 24px));}
+</style>
+<style>/* round 74, w: the answer record, in code type on the Stone block, as written */
+.hwp .hmc.hxc{display:block;white-space:pre;overflow:hidden;}
 </style>
 <style>/* round 73, x: "Run an example" on Matching, part 1 */
 .hwp .hxw{position:absolute;right:0;top:0;display:flex;}
