@@ -2991,7 +2991,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#ffffff;-webkit-font-s
           <span class="lab" key="{{ kLab }}" data-ex="step"><span>{{ lab }}</span><span aria-hidden="true">·</span><span>{{ lab2 }}</span></span>
           <sc-if value="{{ hasQ }}" hint-placeholder-val="{{ false }}"><h1 class="d s36 qq" key="{{ kQ }}" data-ex="q">{{ q1 }}</h1></sc-if>
           <sc-if value="{{ hasFig }}" hint-placeholder-val="{{ false }}">
-            <div class="figw" data-ex="{{ figEx }}"><span class="d fig" key="fig" data-open="{{ red }}" data-roll="{{ figRoll }}"><span class="fgt">{{ fig }}</span><span class="fgr" aria-hidden="true"><sc-for list="{{ figD }}" as="d"><span class="fgs" style="{{ d.s }}"><span class="fgc" style="{{ d.c }}"></span></span></sc-for></span></span><span class="lab" key="{{ kCap }}"><span>{{ cap }}</span></span><sc-if value="{{ canRemove }}" hint-placeholder-val="{{ false }}"><button class="lk" data-ex="remove" onClick="{{ removeFile }}">Remove the file</button></sc-if></div>
+            <div class="figw" data-ex="{{ figEx }}"><span class="d fig" key="fig" data-open="{{ red }}" data-roll="{{ figRoll }}"><span class="fgt">{{ fig }}</span><span class="fgr" aria-hidden="true"><sc-for list="{{ figD }}" as="d"><span class="fgs" style="{{ d.s }}"><span class="fgc" style="{{ d.c }}"></span></span></sc-for></span></span><span class="lab" key="{{ kCap }}"><span>{{ cap }}</span></span><sc-if value="{{ canRemove }}" hint-placeholder-val="{{ false }}"><button class="lk" data-ex="remove" onClick="{{ removeFile }}">Remove the file</button></sc-if><sc-if value="{{ stAct }}" hint-placeholder-val="{{ false }}"><button class="lk" data-ex="s-st" onClick="{{ stFlipNow }}">{{ stActText }}</button></sc-if></div>
           </sc-if>
           <div class="say" key="{{ kSay }}" data-ex="say"><sc-if value="{{ hasSig }}" hint-placeholder-val="{{ false }}"><p class="sig" key="{{ sigKey }}" data-w="{{ sigW }}" role="button" data-ex="ink" aria-label="{{ inkLabel }}" onClick="{{ inkFlip }}">{{ sig }}</p></sc-if><p class="d s36">{{ say }}</p><p class="s17 gr note">{{ note }}</p></div>
         </div>
@@ -3017,7 +3017,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#ffffff;-webkit-font-s
               <sc-if value="{{ one.asking }}" hint-placeholder-val="{{ false }}">
                 <div class="ask">
                   <sc-if value="{{ one.pickOn }}" hint-placeholder-val="{{ false }}"><label class="askl" data-ex="r-same"><span class="s17">Which company on EI’s list?</span><input class="in" value="{{ pq }}" onChange="{{ onPq }}" ref="{{ whyRef }}" placeholder="Find a company"></label><span class="pks"><sc-for list="{{ one.picks }}" as="k"><button class="{{ k.cls }}" onClick="{{ k.go }}">{{ k.t }}</button></sc-for><span class="s17 gr">{{ one.pickNote }}</span></span></sc-if>
-                  <sc-if value="{{ one.themeOn }}" hint-placeholder-val="{{ false }}"><div class="askl" data-ex="r-add"><span class="s17">Engagement theme</span><span class="ans pkr"><sc-for list="{{ one.themes }}" as="k"><button class="{{ k.cls }}" onClick="{{ k.go }}">{{ k.t }}</button></sc-for></span></div><div class="askl" data-ex="r-add"><span class="s17">Reason</span><span class="ans pkr"><sc-for list="{{ one.reasons }}" as="k"><button class="{{ k.cls }}" onClick="{{ k.go }}">{{ k.t }}</button></sc-for></span></div></sc-if>
+                  <sc-if value="{{ one.themeOn }}" hint-placeholder-val="{{ false }}"><div class="askl k3" data-ex="r-add"><span class="s17 gr k3s"><span>{{ one.k3Step }}</span><sc-if value="{{ one.k3Two }}" hint-placeholder-val="{{ false }}"><button class="lk" onClick="{{ one.k3Back }}">Change</button></sc-if></span><span class="s17 k3w"><span class="k3n" key="{{ one.k3K }}"><span>{{ one.k3Lab }}</span><span class="gr">{{ one.k3Cnt }}</span></span><span class="k3n k3o" key="{{ one.k3KO }}" aria-hidden="true"><span>{{ one.k3LabO }}</span><span class="gr">{{ one.k3CntO }}</span></span></span><span class="k3f"><input class="in" aria-label="{{ one.k3Lab }}" value="{{ why }}" onChange="{{ one.k3Set }}" onKeyDown="{{ one.k3Key }}" ref="{{ one.k3Ref }}"><span class="s17 k3g" aria-hidden="true"><span class="k3t">{{ why }}</span><span class="gr k3r" key="{{ one.k3K }}">{{ one.k3Rest }}</span><span class="gr k3r k3o" key="{{ one.k3KO }}">{{ one.k3RestO }}</span></span><span class="k3a"><button class="pl" aria-label="Previous choice" aria-disabled="{{ one.k3NoUp }}" onClick="{{ one.k3Up }}">↑</button><button class="pl" aria-label="Next choice" aria-disabled="{{ one.k3NoDn }}" onClick="{{ one.k3Dn }}">↓</button></span></span></div></sc-if>
                   <sc-if value="{{ one.whyOn }}" hint-placeholder-val="{{ true }}"><label class="askl" data-ex="a-why"><span class="s17">{{ one.askLabel }}</span><input class="in" value="{{ why }}" onChange="{{ onWhy }}" onKeyDown="{{ onWhyKey }}" ref="{{ whyRef }}" placeholder="A short reason"></label></sc-if>
                   <span class="ans"><button class="b big p" data-ex="a-ok" disabled="{{ whyOff }}" onClick="{{ confirmAsk }}">Confirm</button><button class="b big" data-ex="a-no" onClick="{{ cancelAsk }}">Cancel</button></span>
                 </div>
@@ -3035,8 +3035,8 @@ html,body{margin:0;height:100%;overflow:hidden;background:#ffffff;-webkit-font-s
           <div class="{{ ledCls }}" key="{{ ledKey }}" onScroll="{{ onScroll }}">
             <sc-for list="{{ ledger }}" as="r" hint-placeholder-count="5">
               <div class="{{ r.cls }}" data-ex="{{ r.ex }}">
-                <span class="{{ r.kc }}">{{ r.k }}</span>
-                <span><sc-if value="{{ r.go }}" hint-placeholder-val="{{ false }}"><button class="op s17" onClick="{{ r.go }}">{{ r.v }}</button></sc-if><sc-if value="{{ r.nogo }}" hint-placeholder-val="{{ true }}"><span class="{{ r.vc }}">{{ r.v }}<sc-if value="{{ r.lnk }}" hint-placeholder-val="{{ false }}"><a class="mlk" href="{{ r.href }}" onClick="{{ r.lgo }}">{{ r.lnk }}</a>{{ r.v2 }}</sc-if></span></sc-if><sc-if value="{{ r.inp }}" hint-placeholder-val="{{ false }}"><input class="in" aria-label="{{ r.k }}" value="{{ r.v }}" onChange="{{ r.set }}"></sc-if><sc-if value="{{ r.area }}" hint-placeholder-val="{{ false }}"><textarea class="in ta" rows="13" aria-label="{{ r.k }}" value="{{ r.v }}" onChange="{{ r.set }}"></textarea></sc-if><span class="s17 gr">{{ r.sub }}</span><sc-if value="{{ r.s3 }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ r.cells }}" as="x"><span class="s3c" data-ex="{{ x.ex }}" data-out="{{ x.out }}"><button class="d s36" onClick="{{ x.go }}">{{ x.n }}</button><span class="s3t"><button class="s3n s17" onClick="{{ x.go }}">{{ x.name }}</button><sc-if value="{{ x.hasAct }}" hint-placeholder-val="{{ false }}"><button class="lk" onClick="{{ x.flip }}">{{ x.act }}</button></sc-if></span></span></sc-for></sc-if>
+                <span class="{{ r.kc }}">{{ r.k }}<sc-if value="{{ r.more }}" hint-placeholder-val="{{ false }}"><button class="lk rcm" onClick="{{ recFlip }}">{{ r.moreText }}</button></sc-if></span>
+                <span><sc-if value="{{ r.go }}" hint-placeholder-val="{{ false }}"><button class="op s17" onClick="{{ r.go }}">{{ r.v }}</button></sc-if><sc-if value="{{ r.nogo }}" hint-placeholder-val="{{ true }}"><span class="{{ r.vc }}">{{ r.v }}<sc-if value="{{ r.lnk }}" hint-placeholder-val="{{ false }}"><a class="mlk" href="{{ r.href }}" onClick="{{ r.lgo }}">{{ r.lnk }}</a>{{ r.v2 }}</sc-if></span></sc-if><sc-if value="{{ r.inp }}" hint-placeholder-val="{{ false }}"><input class="in" aria-label="{{ r.k }}" value="{{ r.v }}" onChange="{{ r.set }}"></sc-if><sc-if value="{{ r.area }}" hint-placeholder-val="{{ false }}"><textarea class="in ta" rows="13" aria-label="{{ r.k }}" value="{{ r.v }}" onChange="{{ r.set }}"></textarea></sc-if><span class="s17 gr">{{ r.sub }}</span><sc-if value="{{ r.stl }}" hint-placeholder-val="{{ false }}"><span class="s17 gr stl"><sc-for list="{{ r.sts }}" as="x"><span>{{ x.pre }}</span><button class="lk" onClick="{{ x.go }}">{{ x.t }}</button></sc-for></span></sc-if><sc-if value="{{ r.s3 }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ r.cells }}" as="x"><span class="s3c" data-ex="{{ x.ex }}" data-out="{{ x.out }}"><button class="d s36" onClick="{{ x.go }}">{{ x.n }}</button><span class="s3t"><button class="s3n s17" onClick="{{ x.go }}">{{ x.name }}</button><sc-if value="{{ x.hasAct }}" hint-placeholder-val="{{ false }}"><button class="lk" onClick="{{ x.flip }}">{{ x.act }}</button></sc-if></span></span></sc-for></sc-if>
                   <sc-if value="{{ r.reoAsk }}" hint-placeholder-val="{{ false }}">
                     <div class="ask">
                       <label class="askl" data-ex="a-why"><span class="s17">{{ askLab }}</span><input class="in" value="{{ why }}" onChange="{{ onWhy }}" onKeyDown="{{ onWhyKey }}" ref="{{ whyRef }}" placeholder="A short reason"></label>
@@ -3044,7 +3044,6 @@ html,body{margin:0;height:100%;overflow:hidden;background:#ffffff;-webkit-font-s
                     </div>
                   </sc-if>
                   <sc-for list="{{ r.lines }}" as="l"><span class="{{ l.c }}">{{ l.t }}</span></sc-for>
-                  <sc-if value="{{ r.more }}" hint-placeholder-val="{{ false }}"><span><button class="lk" onClick="{{ recFlip }}">{{ r.moreText }}</button></span></sc-if>
                 </span>
               </div>
             </sc-for>
@@ -3561,12 +3560,24 @@ class Component extends DCLogic {
     cs.forEach(c => { const p = s.dec[c.id] && s.dec[c.id].prev; if (p) dec[c.id] = p; else delete dec[c.id]; hist[c.id] = (hist[c.id] || []).concat([Object.assign(this.stamp('Included again'), { reason: '' })]) })
     this.snd('uncheck'); this.setState({ dec: dec, hist: hist, ask: null, lo: null, why: '', log: s.log.concat([this.stamp('Included again: ' + label)]) }) }
   stFlip(st) { if (this.frozen() || this.ro()) return; const m = Coverage.companies.filter(c => this.stIn(c, st)), on = m.filter(c => this.result(c) === 'covered')
-    if (on.length) { this._focusWhy = true; this.snd('tick'); this.setState({ lo: st, ask: null, reo: false, why: '' }) } else this.outUnset(m, m.length + ' ' + st + (m.length === 1 ? ' company' : ' companies')) }
-  askOff() { const s = this.state, a = s.ask, w = s.why.trim().length < 3; if (a && a.kind === 'same') return !a.pick || w; if (a && a.kind === 'add') return !a.theme || !a.rs || (a.rs === 'Other' && w); return w }
+    if (on.length) { this._focusWhy = true; this.snd('tick'); this.setState({ lo: st, ask: null, reo: false, why: '', step: 'sign', flt: null, one: null, q: '', cur: -1 }) } else this.outUnset(m, m.length + ' ' + st + (m.length === 1 ? ' company' : ' companies')) }
+  askOff() { const s = this.state, a = s.ask, w = s.why.trim().length < 3; if (a && a.kind === 'same') return !a.pick || w; if (a && a.kind === 'add') return a.st === 2 && a.rs === 'Other' && w; return w }
   xtra() { let o = 0, a = 0; const d = this.state.dec; Object.keys(d).forEach(k => { if (d[k].out) o++; else if (d[k].add) a++ }); return (o ? ', ' + o + ' left out' : '') + (a ? ', ' + a + ' added to EI’s list' : '') }
   // ---- round 60, b: two acts on a company that is not covered. A company is covered because it is on EI's list, never despite being off it
   RSN = ['Client’s request', 'New incident', 'Other']
-  openAct(c, kind) { if (this.frozen() || this.ro()) return; this._focusWhy = kind === 'same'; this.snd('tick'); this.setState({ one: c.id, ask: { id: c.id, to: 'covered', kind: kind }, reo: false, lo: null, why: '', pq: '' }) }
+  openAct(c, kind) { if (this.frozen() || this.ro()) return; this._focusWhy = true; this.snd('tick'); this.setState({ one: c.id, ask: Object.assign({ id: c.id, to: 'covered', kind: kind }, kind === 'add' ? { st: 1, ti: 0, ri: 0, theme: Object.keys(Coverage.labels.themes)[0], rs: this.RSN[0] } : {}), reo: false, lo: null, why: '', pq: '' }) }
+  // ---- round 67, k: Add to EI's list as K3. One field, two steps (ask.st); ask.ti and ask.ri are the choice shown, ask.theme and ask.rs follow them; the typed text is state.why.
+  // Typing completes in place: a theme takes only letters that start one; a reason that starts none of the first two is the other reason itself. ask.po holds the words that fade out
+  k3Names(two) { const T = Coverage.labels.themes; return two ? this.RSN : Object.keys(T).map(f => T[f]) }
+  k3Put(i, why) { const a = this.state.ask, two = a.st === 2; this.setState({ why: why, ask: Object.assign({}, a, two ? { ri: i, rs: this.RSN[i] } : { ti: i, theme: Object.keys(Coverage.labels.themes)[i] }) }) }
+  k3Set = e => { const a = this.state.ask; if (!a || a.kind !== 'add') return; const raw = e.target.value, t = raw.replace(/'/g, '’').toLowerCase(), two = a.st === 2, N = two ? this.RSN.slice(0, 2) : this.k3Names(false)
+    if (!t) { this.setState({ why: '' }); return } const i = N.findIndex(n => n.toLowerCase().indexOf(t) === 0); if (i >= 0) this.k3Put(i, N[i].slice(0, t.length)); else if (two) this.k3Put(2, raw)
+    else { const at = n => { const l = n.toLowerCase(); let k = l.indexOf(t, 1); while (k > 0 && ' -'.indexOf(l[k - 1]) < 0) k = l.indexOf(t, k + 1); return k }, j = N.findIndex(n => at(n) > 0); if (j >= 0) this.k3Put(j, N[j].substr(at(N[j]), t.length)) } } // round 68, e: the start of any word of a theme
+  k3Go(d) { const a = this.state.ask; if (!a || a.kind !== 'add') return; const two = a.st === 2, i = (two ? a.ri : a.ti) + d; if (this._k3) this._k3.focus(); if (i < 0 || i >= this.k3Names(two).length) return; this.snd('tick'); this.k3Put(i, '') }
+  k3Step(st) { const a = this.state.ask; if (!a || a.kind !== 'add' || a.st === st) return; const two = a.st === 2, N = this.k3Names(two), i = two ? a.ri : a.ti, w = this.state.why; this.snd('tick'); if (this._k3) this._k3.focus()
+    this.setState({ why: '', ask: Object.assign({}, a, { st: st, po: { lab: two ? 'Reason' : 'Engagement theme', cnt: ' · ' + (i + 1) + ' of ' + N.length, rest: two && i === 2 && w ? w : N[i] } }) }) }
+  k3Key = e => { const a = this.state.ask, k = e.key; if (k === 'ArrowUp' || k === 'ArrowDown') { e.preventDefault(); this.k3Go(k === 'ArrowDown' ? 1 : -1) } else if (k === 'Enter') { e.preventDefault(); this.confirmAsk() } else if (k === 'Escape') { e.preventDefault(); this.cancelAsk() } }
+  k3Ref = el => { this._k3 = el; this.whyRef(el) }
   askSet(o) { this.snd('tick'); if (o.rs === 'Other' || o.pick) this._focusWhy = true; this.setState({ ask: Object.assign({}, this.state.ask, o) }) }
   onPq = e => this.setState({ pq: e.target.value, ask: Object.assign({}, this.state.ask, { pick: null }) })
   actSet(c, a, why) { if (this.frozen() || this.ro()) return; const s = this.state, t = a.kind === 'same' ? Coverage.companies.find(x => x.id === a.pick) : null, L = Coverage.labels, reason = a.kind === 'add' && a.rs !== 'Other' ? a.rs : why
@@ -3581,7 +3592,10 @@ class Component extends DCLogic {
     v.pickOn = k === 'same'; v.themeOn = k === 'add'; v.whyOn = asking && (k === 'same' ? !!a.pick : k === 'add' ? a.rs === 'Other' : true)
     if (k === 'same') { const q = s.pq.trim().toLowerCase(), seen = {}, all = Coverage.companies.filter(x => x.ei && !seen[x.ei.name] && (seen[x.ei.name] = 1)), hit = a.pick ? all.filter(x => x.id === a.pick) : q.length > 1 ? all.filter(x => x.ei.name.toLowerCase().indexOf(q) >= 0).sort((x, y) => x.ei.name < y.ei.name ? -1 : 1).slice(0, 4) : []
       v.picks = hit.map(x => ({ t: x.ei.name + ' · ' + x.ei.status, cls: 'b' + (a.pick === x.id ? ' p' : ''), go: () => this.askSet({ pick: a.pick === x.id ? null : x.id }) })); v.pickNote = !a.pick && q.length > 1 && !hit.length ? 'No company with that name on EI’s list.' : ''; v.askLabel = 'Why is it the same company?' }
-    if (k === 'add') { v.themes = Object.keys(L.themes).map(f => ({ t: L.themes[f], cls: 'b' + (a.theme === f ? ' p' : ''), go: () => this.askSet({ theme: f }) })); v.reasons = this.RSN.map(r => ({ t: r, cls: 'b' + (a.rs === r ? ' p' : ''), go: () => this.askSet({ rs: r }) })); v.askLabel = 'Which other reason?' } }
+    if (k === 'add') { const two = a.st === 2, N = this.k3Names(two), i = two ? a.ri : a.ti, w = s.why, po = a.po || { lab: '', cnt: '', rest: '' }; v.whyOn = false
+      v.k3Two = two; v.k3Step = two ? 'Step 2 of 2 · ' + L.themes[a.theme] + ' · ' : 'Step 1 of 2'; v.k3Back = () => this.k3Step(1); v.k3K = 'k' + a.st; v.k3KO = 'o' + a.st
+      v.k3Lab = two ? 'Reason' : 'Engagement theme'; v.k3Cnt = ' · ' + (i + 1) + ' of ' + N.length; v.k3Rest = two && i === 2 ? (w ? '' : N[i]) : w && N[i].toLowerCase().indexOf(w.toLowerCase()) ? ' · ' + N[i] : N[i].slice(w.length); v.k3LabO = po.lab; v.k3CntO = po.cnt; v.k3RestO = po.rest
+      v.k3Set = this.k3Set; v.k3Key = this.k3Key; v.k3Ref = this.k3Ref; v.k3Up = () => this.k3Go(-1); v.k3Dn = () => this.k3Go(1); v.k3NoUp = i === 0 ? 'true' : 'false'; v.k3NoDn = i === N.length - 1 ? 'true' : 'false' } }
   // ---- round 60, c: the page "How matching works". One press opens it; Esc, Backspace, M or Close leave it; it comes and goes as one fade
   hwFlip = () => { const s = this.state; if (s.cl || !s.ok) return; clearTimeout(this._hwT); if (!s.hw) { this.unfocus(); this.snd('open'); this.setState({ hw: true, hwOut: false, hwP: 0, hwI: [0, 0, 0] }); return } if (s.hwOut) return; this.snd('close'); if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { this.setState({ hw: false, hwOut: false }); return } this.setState({ hwOut: true }); this._hwT = setTimeout(() => this.setState({ hw: false, hwOut: false }), 450) }
   // ---- round 66: Matching as agreed in round 63. hwP: 0 the intro, 1 to 3 the parts; hwI: the item shown in each part. An item: name, tag, rule, in words, gives, spec
@@ -3604,13 +3618,13 @@ class Component extends DCLogic {
       ['Name intelligence', 'Aliases, former names, abbreviations, spelling variants and other languages; a verdict of same or not the same, with its reason.', 'A multilingual embedding model shortlists candidates; a large language model gives the verdict. Output: same or not the same, a confidence from 0 to 1, a written reason.'],
       ['Memory', 'Every answer a person gives is kept and offered again, citing who decided and when. It remembers the answer, never who held the security.', 'Exact-key lookup before any model is called. Stores the answer, who gave it and when; never the holder.'],
       ['Triage by stakes', 'Review is ordered by lowest confidence and highest value held.', 'Queue sorted by confidence, lowest first, then by value held, highest first.'],
-      ['Self-audit', 'Reports the share decided automatically and the share a person overruled.', 'Two figures per run: the share decided automatically and the share a person overruled.']].map(x => [x[0], '', '', [x[1]], 'A proposal, with a confidence score and a written reason.', x[2]]) },
+      ['Self-audit', 'Reports the share decided automatically and the share a person overruled.', 'Two figures per run: the share decided automatically and the share a person overruled.']].map((x, k) => [x[0], '', '', [x[1]], k < 7 ? 'A proposal, with a confidence score and a written reason.' : '', x[2]]) },
     { t: 'How the two work together', sub: 'EI sets both thresholds; each change is versioned.', items: [
       ['Above the upper threshold', 'Automatic', 'confidence ≥ upper threshold', [], 'The answer is given automatically.', 'Default upper threshold: 0.90. An automatic answer still stores its score, reason and model version.'],
       ['Between the thresholds', 'To review', 'lower threshold ≤ confidence < upper threshold', [], 'To review, with the evidence shown.', 'Default band: 0.50 to 0.90. Shown to a person with the evidence, ordered by stakes.'],
       ['Below the lower threshold', 'Not for engagement', 'confidence < lower threshold', [], 'Not for engagement.', 'Default lower threshold: 0.50. Not for engagement; a person can reverse it until sign-off.'],
       ['Always', 'A person signs', '', ['Test 1 always decides alone. AI never signs: a person does.'], '', 'Sign-off freezes the file, the list version and both thresholds. A later change never rewrites a signed file.']] }]
-  HWIN = [['The client’s portfolio: ', 'every fund and every security the client holds.'], ['EI’s list: ', 'every company for engagement, in its latest version.'], ['The issuer record: ', 'for each security, the company that issued it, and who owns that company.']]
+  HWIN = [['The client’s portfolio: ', 'every fund and every security the client holds.'], ['EI’s list: ', 'every company for engagement, in its latest version.'], ['The issuer record: ', 'who issued each security, and who owns the issuer.']]
   HW0 = { st: '0', pk: 'hw', intro: false, part: false, items: [], det: [], inp: [], tabs: [] }
   hwGo(p) { if (!true) { const sc = document.querySelector('.hwp .pvs'); if (sc && p > 0) { this.snd('tick'); sc.scrollTo({ top: sc.clientHeight, behavior: window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }) } return } if (p === this.state.hwP) return; this.snd('tick'); this.setState({ hwP: p }) }
   hwPick(i) { const s = this.state, P = s.hwP; if (P < 1 || i < 0 || i >= this.HW[P - 1].items.length || i === s.hwI[P - 1]) return; this.snd('tick'); const a = s.hwI.slice(); a[P - 1] = i; this.setState({ hwI: a }) }
@@ -3680,7 +3694,7 @@ class Component extends DCLogic {
   }
   // a reason is asked in the company view, so a row in the list never grows
   openAsk(c, to) { if (this.ro()) return; this._focusWhy = true; if (this.state.one !== c.id) this._kb = false; this.snd(this.state.one === c.id ? 'tick' : 'open'); this.setState({ one: c.id, ask: { id: c.id, to: to }, reo: false, why: '' }) }
-  confirmAsk = () => { const a = this.state.ask, why = this.state.why.trim(); if (this.askOff()) return; if (this.state.reo) { this.doReopen(why); return } if (this.state.lo) { const st = this.state.lo, cs = Coverage.companies.filter(c => this.stIn(c, st) && this.result(c) === 'covered'); this.outSet(cs, why, cs.length + ' ' + st + (cs.length === 1 ? ' company' : ' companies')); return } if (!a) return; const c = Coverage.companies.find(x => x.id === a.id); if (c && a.kind) this.actSet(c, a, why); else if (c) this.decide(c, a.to, why) }
+  confirmAsk = () => { const a = this.state.ask, why = this.state.why.trim(); if (this.askOff()) return; if (a && a.kind === 'add' && a.st !== 2 && !this.state.reo && !this.state.lo) { this.k3Step(2); return } if (this.state.reo) { this.doReopen(why); return } if (this.state.lo) { const st = this.state.lo, cs = Coverage.companies.filter(c => this.stIn(c, st) && this.result(c) === 'covered'); this.outSet(cs, why, cs.length + ' ' + st + (cs.length === 1 ? ' company' : ' companies')); return } if (!a) return; const c = Coverage.companies.find(x => x.id === a.id); if (c && a.kind) this.actSet(c, a, why); else if (c) this.decide(c, a.to, why) }
   cancelAsk = () => { if (this.state.ask || this.state.reo || this.state.lo) this.setState({ ask: null, reo: false, lo: null, why: '', pq: '' }) }
   onWhy = e => this.setState({ why: e.target.value })
   onWhyKey = e => { if (e.key === 'Enter') { e.preventDefault(); this.confirmAsk() } else if (e.key === 'Escape') { e.preventDefault(); this.cancelAsk() } }
@@ -3953,7 +3967,8 @@ class Component extends DCLogic {
     if (oc) { const e = this.eiOf(oc); one.stLine = e ? 'Status: ' + e.status : ''; one.stDot = e ? ' · ' : ''; if (e && !oc.ei) one.flagLine = 'EI’s flag: ' + e.flags.map(f => f + ' ' + L.flags[f]).join(', '); one.sugEx = oc.suggest ? 'r-sug' : 'r-nosug' }
 
     // the left panel: a label, then a question and a figure, or two large words; one serif sentence at the foot
-    const P = { lab: 'Step ' + (this.STEPS.indexOf(step) + 1) + ' of 4', lab2: step === 'send' && this.state.sent ? 'sent' : step, hasQ: false, hasFig: false, red: '0', canRemove: false, say: '', note: '', figEx: 'step', hasSig: false, sig: '' }
+    const fst = step === 'review' && s.flt && s.flt[0] !== 'g' ? 'sign' : step // round 68, s: the frame follows where the list was opened from
+    const P = { lab: 'Step ' + (this.STEPS.indexOf(fst) + 1) + ' of 4', lab2: step === 'send' && this.state.sent ? 'sent' : step, hasQ: false, hasFig: false, red: '0', canRemove: false, say: '', note: '', figEx: 'step', hasSig: false, sig: '' }
     let ledHead = '', ledger = []
     const lr = (exk, k, v, sub, o) => Object.assign({ ex: exk, cls: 'lr gn', k: k, kc: 'd s36', v: v, vc: 's17', sub: sub || '', lines: [], nogo: true }, o || {})
     const kv = (exk, k, v, o) => Object.assign({ ex: exk, cls: 'lr kv gn', k: k, kc: 'gr', v: v, vc: 's17', sub: '', lines: [], nogo: true }, o || {})
@@ -3966,7 +3981,7 @@ class Component extends DCLogic {
       ledger = [lr('f-funds', num(st.funds), 'Funds', 'of the client', s.back == null ? { cls: 'lr go gn', nogo: false, go: this.fvFlip } : {}), lr('f-secs', num(st.securities), 'Securities', 'in ' + num(st.companies) + ' companies', dOpen('gs')), lr('f-aside', num(st.setAside), 'Lines set aside', 'cash and fees, no identifier', dOpen('ga')),
         lr('g-covered', num(st.covered), 'Companies for engagement', 'same ISIN · automatic', dOpen('gc')), lr('g-look', num(st.look), 'Companies to review', 'a person decides', dOpen('gl')), lr('g-not', num(st.not), 'Companies not for engagement', 'no match · automatic', dOpen('gn'))]
       if (s.fv) { ledHead = 'The five funds'; ledger = this.val().funds.map(f => lr('f-funds', f.name, num(f.holdings) + ' holdings', 'in the file', { cls: 'lr fx gn', kc: 's17' })) }
-    } else if (step === 'review' && s.flt) Object.assign(P, { lab2: s.flt[0] === 'g' ? 'Review · as read' : frozen ? 'Review · signed' : 'Review · before signing', hasQ: true, q1: 'Check the list.', hasFig: true, fig: num(all.length), cap: this.FLT[s.flt][0], figEx: 's-open', say: this.roNow() ? 'Read only.' : 'Open any one.', note: s.flt === 'gs' ? 'Each security is counted once.' : s.flt === 'ga' ? 'Cash and fees carry no identifier.' : 'Each company shows its trail.' })
+    } else if (step === 'review' && s.flt) Object.assign(P, { lab2: s.flt[0] === 'g' ? 'Review · as read' : fst, hasQ: true, q1: s.flt[0] === 'g' ? 'Check the list.' : this.FLT[s.flt][0] + '.', hasFig: true, fig: num(all.length), cap: this.FLT[s.flt][0], figEx: 's-open', say: this.roNow() ? 'Read only.' : 'Open any one.', note: s.flt === 'gs' ? 'Each security is counted once.' : s.flt === 'ga' ? 'Cash and fees carry no identifier.' : 'Each company shows its trail.' })
     else if (step === 'review') Object.assign(P, { hasQ: true, q1: n ? 'To review.' : 'All answered.', hasFig: true, fig: String(n), red: n ? '1' : '0', cap: 'Left to decide · of ' + st.look, figEx: 'count', say: frozen ? 'Signed.' : n ? 'Answer each.' : 'Ready to sign.', note: frozen ? 'Nothing can change now.' : n ? 'Signing unlocks at zero.' : 'Every company has an answer.' })
     else if (step === 'sign') {
       if (frozen) Object.assign(P, { hasQ: true, q1: 'Signed.', hasFig: true, fig: num(tot.cov), cap: 'Companies · ' + this.val().text, figEx: 'record', hasSig: true, sig: s.signed.who, say: s.signed.at + '.', note: s.signed.who + ' · ' + this.ROLE })
@@ -3977,7 +3992,8 @@ class Component extends DCLogic {
       if (!frozen) ledger.splice(1, 0, lr('s-funds', V.pct, 'of the portfolio, by value', num(V.covered) + ' of ' + num(V.holdings) + ' holdings · open the five funds', { cls: 'lr go gn', nogo: false, go: this.fvFlip }))
       // round 60, a: before signing, Covered is shown by status, one row of three cells; each opens its list and switches between Include and Leave out. With companies added to EI's list, the two review rows and theirs share one row of the same form, so Sign never scrolls
       if (!frozen && s.back == null) { const S3 = (exk, cells) => ({ ex: exk, cls: 'lr s3 gn', k: '', kc: '', v: '', vc: '', sub: '', lines: [], nogo: false, s3: true, cells: cells }), cell = (n, name, k) => ({ ex: 's-open', n: num(n), name: name, out: '0', hasAct: false, go: () => this.openFlt(k) })
-        ledger[0] = S3('s-st', this.STN.map(st => { const m = C.companies.filter(c => this.stIn(c, st)), on = m.filter(c => this.result(c) === 'covered').length, o = m.length - on; return { ex: 's-st', n: num(on), name: st, out: on ? '0' : '1', hasAct: m.length > 0, act: on ? 'Leave out' : 'Include ' + num(o), go: () => this.openFlt('s' + st[0].toLowerCase()), flip: () => this.stFlip(st) } }))
+        { const G = this.STN.map(st => { const m = C.companies.filter(c => this.stIn(c, st)), on = m.filter(c => this.result(c) === 'covered').length; return { st: st, on: on, o: m.length - on, out: !on && m.length > 0 } }), ins = G.filter(x => !x.out)
+          ledger[0] = lr('s-st', num(tot.cov), 'For engagement', '', Object.assign(open('cov'), { stl: true, sts: ins.concat(G.filter(x => x.out)).map((x, i) => ({ pre: (i ? ' · ' : '') + (x.out && i === ins.length ? 'left out: ' : ''), t: num(x.out ? x.o : x.on) + ' ' + x.st, go: () => this.openFlt('s' + x.st[0].toLowerCase()) })) })) }
         const na = C.companies.filter(this.FLT.sa[1]).length; if (na) ledger.splice(3, 2, S3('s-open', [cell(tot.chg, 'Changed in review', 'chg'), cell(tot.dby, 'Answered in review', 'dby'), cell(na, 'Added to EI’s list', 'sa')])) }
       if (frozen) ledger.push(kv('outfile', 'Client’s file', this.rid() + '.pdf', s.back == null ? { cls: 'lr kv go gn', nogo: false, go: this.pvOpen } : { vc: 's17 brk' }))
       // the run record: each entry is a line of when and who, then what it was, one part to a line. With more than one entry only the last shows, cut to its first part, until Show all is pressed
@@ -4018,6 +4034,7 @@ class Component extends DCLogic {
     const figD = P.hasFig && !isOne ? this.figDigits(String(P.fig), figRollOk) : null
     const hstops = this.HS.map((k, i) => { const o = s.stops[k], on = i <= hLast && !!o; return { label: this.HL[k], s: !on ? 'no' : i === hAt ? 'at' : 'on', ln: on && i < hLast ? '1' : '0', fe: i < this.HS.length - 1 ? '' : !on ? '0' : (s.back != null ? this._live && this._live.canUnsend : s.canUnsend) ? 'u' : '1', when: on ? o.day + ', ' + o.time : 'Not yet', c1: on ? 's17' : 's17 gr', date: on ? o.date : 'Not yet', time: on ? o.time : '', who: on ? o.who : '', how: on ? o.how : '', short: on ? (k === 'read' && s.file ? n + ' to review' : this.HSH[k](o)) : 'Not yet', fig: on ? o.fig : '', lab: on ? o.lab : '', sub: on ? (k === 'read' && s.file ? n + ' to review' : o.sub) : '', sg: on && k === 'signed' ? o.who : '', go: () => this.hgo(i) } })
     const hO = hAt >= 0 ? s.stops[this.HS[hAt]] : null, hNote = !hO ? '' : this.HL[this.HS[hAt]] + (hO.who === 'Automatic' ? ' automatically' : ' by ' + hO.who) + ' · ' + hO.day + ', ' + hO.time
+    const stK = step === 'review' && /^s[epf]$/.test(s.flt || '') && !s.one && !frozen && !this.ro() && s.back == null ? this.FLT[s.flt][0] : null, stM = stK ? C.companies.filter(c => this.stIn(c, stK)) : [], stOn = stM.filter(c => this.result(c) === 'covered').length
     return Object.assign(base, P, {
       canReopen: step === 'sign' && frozen && !s.reo && !isOne && s.back == null, canUnsend: step === 'send' && !!s.sent && s.canUnsend && s.back == null,
       client: run.client, exOn: s.ex ? '1' : '0', exPressed: !!s.ex, exName: ex[0], exText: ex[1], exTall: ex[1].length > 700 ? '3' : ex[1].length > 520 ? '2' : ex[1].length > 340 ? '1' : '0', exKn: 'n' + (s.ex ? s.exK || '' : '-'), exKt: 't' + (s.ex ? s.exK || '' : '-'), exCaps: ex[2] || [],
@@ -4031,10 +4048,10 @@ class Component extends DCLogic {
       rows: rows, listKey: s.group + (s.flt || '') + (frozen ? 'z' : ''), hasMore: isList && (list.length > rows.length || list.length === 0),
       more: all.length === 0 ? (s.flt ? 'None.' : frozen ? 'Empty after sign-off: every company is in its final group.' : 'Nothing here.') : list.length === 0 ? (s.flt === 'gs' ? 'No security with that name.' : 'No company with that name in this group.') : 'Showing ' + rows.length + ' of ' + num(list.length) + '. Type a name above to narrow the list.',
       hwOn: s.hw, hwOut: s.hwOut ? '1' : '0', hwPressed: s.hw, hw: s.hw ? this.hwVals() : this.HW0, why: s.why, whyOff: this.askOff(), askLab: s.lo ? 'Why leave out the ' + s.lo + ' companies?' : 'Why reopen it?', pq: s.pq,
-      ctaText: cta.text, ctaOff: !!cta.off, ctaHint: cta.hint || '', canRemove: !!P.canRemove && s.back == null,
+      ctaText: cta.text, ctaOff: !!cta.off, ctaHint: cta.hint || '', canRemove: !!P.canRemove && s.back == null, stAct: stM.length > 0, stActText: stOn ? 'Leave out ' + num(stOn) : 'Include ' + num(stM.length), stFlipNow: () => this.stFlip(stK),
       hon: s.hon ? '1' : '0', hOn: s.hon, tabsOn: !s.hon, hf: s.hon && s.fm && !isOne ? '1' : '0', hx: this.hxNow(s.hon && s.fm && !isOne, s.hon), backOn: s.back != null ? '1' : '0', sentOn: s.sent && s.step === 'send' ? '1' : '0', hPressed: s.hon, hbText: s.back != null ? 'Looking back' : status[0], hbNote: hNote, hstops: hstops, pathOn: isOne && s.hon,
       statusText: status[0], statusDot: status[1], statusGo: () => { if (s.file) this.setGroup('look') }, statusOff: step === 'review' ? '1' : '0',
-      tabI: String(this.STEPS.indexOf(step)), tabs: this.STEPS.map((k, i) => ({ ex: 't-' + k, num: '0' + (i + 1), label: k, cur: step === k ? 'step' : null, off: !this.canGo(k), go: () => this.go(k) }))
+      tabI: String(this.STEPS.indexOf(fst)), tabs: this.STEPS.map((k, i) => ({ ex: 't-' + k, num: '0' + (i + 1), label: k, cur: fst === k ? 'step' : null, off: !this.canGo(k), go: () => this.go(k) }))
     })
   }
 }
@@ -4128,6 +4145,33 @@ class Component extends DCLogic {
 .cv .lf .blk>.lab,.cv .eiL .lab{color:var(--stp);}
 .cv .tl{background:var(--stp);}.cv[data-sent="1"] .lf .blk>.lab{color:var(--ink);}.cv[data-sent="1"] .tl{background:var(--ink);}.cv[data-sent="1"] .tab[aria-current="step"]{color:var(--ink);box-shadow:inset 0 4px 0 var(--ink);}.cv .tab[aria-current="step"]{color:var(--stp);box-shadow:inset 0 4px 0 var(--stp);}.cv .tab[aria-current="step"] .num{opacity:1;}
 .eiI{color:var(--ink);}.eiI .eiL{display:flex;min-height:24px;}.cv .lf .blk>.lab,.cv .eiL .lab{gap:0 calc(1ch + 1px);}.eiI .eiD{color:var(--stp);}.eiI .eiD i{font-style:normal;color:var(--rule);}.eiI .eiD b{font-weight:inherit;color:var(--ink);}</style>
+<style>/* round 67, c: Sign's status line. One line, never wrapped; each status opens its list */
+.stl{display:block;white-space:nowrap;}
+.stl>span{white-space:pre;}
+.stl .lk{position:relative;z-index:1;color:inherit;}
+.figw .lk[data-ex="s-st"]{position:relative;z-index:1;}
+</style>
+<style>/* round 67, k: Add to EI's list as K3. One field in one place; the words of a step fade in over the last step's, .2 s */
+.k3s,.k3w,.k3f{display:block;position:relative;}
+.k3s>span,.k3n>span,.k3g>span{white-space:pre;}
+.k3n{display:block;animation:cvFade .2s ease both;}
+.k3o{position:absolute;left:0;top:0;pointer-events:none;animation:k3Out .2s ease both;}
+.k3 .in{padding-right:72px;}
+.k3g{position:absolute;left:16px;right:72px;top:0;height:48px;display:flex;align-items:center;overflow:hidden;pointer-events:none;}
+.k3t{visibility:hidden;}
+.k3r{animation:cvFade .2s ease both;}
+.k3g>.k3o{top:auto;animation-name:k3Out;}
+.k3a{position:absolute;right:16px;top:0;height:48px;display:flex;align-items:center;gap:16px;}
+.k3a .pl:hover{background:none;box-shadow:none;}
+@keyframes k3Out{from{opacity:1}to{opacity:0}}
+@media (prefers-reduced-motion: reduce){.k3n,.k3r,.k3o{animation-duration:.01s;}}
+</style>
+<style>/* round 68, p: the record's "Show all n" stands in the left column, on the record's second line; the column stays in view while a long record scrolls */
+.lr.kv[data-ex="record"]>:first-child{position:sticky;top:32px;align-self:start;}
+.rcm{display:block;margin-top:8px;}
+/* the record keeps the height of its three lines, so a shorter entry moves no row (Sign to Signed) */
+.lr.kv[data-ex="record"]>:last-child{min-height:calc(3 * var(--ln, 24px));}
+</style>
 <script>(function(){
 var T={'t-drop':['01','Drop','Drop a file.','Read against EI’s list.'],'t-review':['02','Review','Check the list.','A few need your answer.'],'t-sign':['03','Sign','Sign off.','Read it, then sign.'],'t-send':['04','Send','Send to the client.','A link and a code.']};
 var cur=null,el=null;
