@@ -2789,7 +2789,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#ffffff;-webkit-font-s
 .chip.on::before{background:currentColor;}
 
 /* the signature sits on the grey line: its top just touches the line above, as a hand would sign */
-.cv .say .sig{margin:0 0 -4px;}
+.cv .say .sig{margin:0 0 -8px;}
 .note:empty{display:none;}
 /* motion: nothing changes without a move. A whole panel rises 24 in .6s (cvUp, above); a part that appears or changes rises 8 in .45s on the same curve */
 @keyframes cvIn{from{opacity:0}to{opacity:1}} /* round 52, e: a fade; nothing moves */
@@ -2899,7 +2899,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#ffffff;-webkit-font-s
 .cv .sig,.cv .hsg{font-family:'Signerica',cursive;letter-spacing:0;text-transform:none;color:var(--sgc);cursor:pointer;}
 .cv[data-hf="1"] .hsg{pointer-events:auto;}
 /* the box holds the strokes that rise over the line and lean past its sides, so a change of colour repaints all of them */
-.cv .say .sig{padding:.5em .3em 0;margin:-.5em -.3em -4px;}
+.cv .say .sig{padding:.5em .3em 0;margin:-.5em -.3em -8px;} /* round 86: 8 closer to the date */
 /* round 44: at Sign off and at Send the signature is written left to right, once. The Radar's intro signature: a clip over 1.5s on cubic-bezier(.55,.1,.4,1), .35s late; it shows in .2s, linear. While it is written its box is as wide as the name, as on the Radar, so the clip runs over the name alone. Looking back, a change of colour and reduce motion show it whole */
 @keyframes sgW{from{clip-path:inset(-100% 100% -100% -8%)}to{clip-path:inset(-100% -8% -100% -8%)}}
 @keyframes sgO{from{opacity:0}to{opacity:1}}
