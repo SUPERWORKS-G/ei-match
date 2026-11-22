@@ -2993,7 +2993,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#ffffff;-webkit-font-s
 </style>
 </helmet>
 
-<div class="cv" data-screen-label="Coverage" data-theme="{{ theme }}" data-exon="{{ exOn }}" data-fm="{{ fm }}" data-view="{{ view }}" data-sgc="{{ sgc }}" data-blocks="{{ blocksOn }}" data-gr="{{ grOn }}" data-u="{{ uScale }}" data-hon="{{ hon }}" data-hf="{{ hf }}" data-hx="{{ hx }}" data-back="{{ backOn }}" data-sent="{{ sentOn }}" ref="{{ rootRef }}" onPointerOver="{{ onOver }}" onFocus="{{ onOver }}" onDragOver="{{ onDragOver }}" onDragLeave="{{ onDragLeave }}" onDrop="{{ onDrop }}">
+<div class="cv" data-screen-label="Coverage" data-theme="{{ theme }}" data-exon="{{ exOn }}" data-fm="{{ fm }}" data-view="{{ view }}" data-sgc="{{ sgc }}" data-blocks="{{ blocksOn }}" data-gr="{{ grOn }}" data-u="{{ uScale }}" data-hon="{{ hon }}" data-hf="{{ hf }}" data-hx="{{ hx }}" data-back="{{ backOn }}" data-sent="{{ sentOn }}" data-fst="{{ fstK }}" ref="{{ rootRef }}" onPointerOver="{{ onOver }}" onFocus="{{ onOver }}" onDragOver="{{ onDragOver }}" onDragLeave="{{ onDragLeave }}" onDrop="{{ onDrop }}">
 
   <div class="hdw">
     <header class="hd g12">
@@ -4167,7 +4167,7 @@ class Component extends DCLogic {
       ctaText: cta.text, ctaOff: !!cta.off, ctaHint: cta.hint || '', canRemove: !!P.canRemove && s.back == null, stAct: stM.length > 0, stActText: stOn ? 'Leave out ' + num(stOn) : 'Include ' + num(stM.length), stFlipNow: () => this.stFlip(stK),
       hon: s.hon ? '1' : '0', hOn: s.hon, tabsOn: !s.hon, hf: s.hon && s.fm && !isOne ? '1' : '0', hx: this.hxNow(s.hon && s.fm && !isOne, s.hon), backOn: s.back != null ? '1' : '0', sentOn: s.sent && s.step === 'send' ? '1' : '0', hPressed: s.hon, hbText: s.back != null ? 'Looking back' : status[0], hbNote: hNote, hstops: hstops, pathOn: isOne && s.hon,
       statusText: status[0], statusDot: status[1], statusGo: () => { if (s.file) this.setGroup('look') }, statusOff: step === 'review' ? '1' : '0',
-      tabI: String(this.STEPS.indexOf(fst)), tabs: this.STEPS.map((k, i) => ({ ex: 't-' + k, num: '0' + (i + 1), label: k, cur: fst === k ? 'step' : null, pos: (j => j < 0 ? '' : i < j ? 'b' : i === j ? 'c' : 'a')(this.STEPS.indexOf(fst)), off: !this.canGo(k), go: () => this.go(k) }))
+      fstK: 't-' + fst, tabI: String(this.STEPS.indexOf(fst)), tabs: this.STEPS.map((k, i) => ({ ex: 't-' + k, num: '0' + (i + 1), label: k, cur: fst === k ? 'step' : null, pos: (j => j < 0 ? '' : i < j ? 'b' : i === j ? 'c' : 'a')(this.STEPS.indexOf(fst)), off: !this.canGo(k), go: () => this.go(k) }))
     })
   }
 }
@@ -4399,7 +4399,7 @@ window.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.t
 window.addEventListener('keydown',function(e){if(!el||e.metaKey||e.ctrlKey||e.altKey||/^(Shift|Meta|Control|Alt|Tab)$/.test(e.key))return;gone();e.stopPropagation();e.preventDefault()},true);
 window.addEventListener('pointerdown',function(e){if(el){gone();e.stopPropagation();e.preventDefault();window.__eiSw=1}},true);
 window.addEventListener('click',function(e){if(window.__eiSw){window.__eiSw=0;e.stopPropagation();e.preventDefault()}},true);
-function tick(){requestAnimationFrame(tick);if(navigator.webdriver&&!window.__eiIntroOn)return;var t=document.querySelector('.cv .tab[aria-current="step"]'),k=t?t.getAttribute('data-ex'):null;if(k&&k!==cur&&!window.__eiHold){var o=k==='t-drop'&&cur==='t-send'&&Date.now()-nr<3000,bk=!o&&cur&&T[cur]&&T[k]&&+T[k][0]<+T[cur][0];cur=k;if(bk)clean();else show(k,o)}} /* round 70, e: no intro on a step walked back to */
+function tick(){requestAnimationFrame(tick);if(navigator.webdriver&&!window.__eiIntroOn)return;var t=document.querySelector('.cv .tab[aria-current="step"]'),c0=cv(),k=t?t.getAttribute('data-ex'):(c0&&T[c0.getAttribute('data-fst')]?c0.getAttribute('data-fst'):null);if(k&&k!==cur&&c0&&c0.getAttribute('data-back')==='1'){cur=k;return}if(k&&k!==cur&&!window.__eiHold){var o=k==='t-drop'&&cur==='t-send'&&Date.now()-nr<3000,bk=!o&&cur&&T[cur]&&T[k]&&+T[k][0]<+T[cur][0];cur=k;if(bk)clean();else show(k,o)}} /* round 70, e: no intro on a step walked back to */
 tick()})();</script>
 <script>/* round 79, q: mark a foot step whose state changed under the pointer; a real pointer move on it clears the mark */
 (function(){var mo=new MutationObserver(function(ms){for(var i=0;i<ms.length;i++){var t=ms[i].target;if(t.classList&&t.classList.contains('tab')&&t.parentNode&&t.parentNode.classList&&t.parentNode.classList.contains('tabs')&&ms[i].oldValue!==t.getAttribute(ms[i].attributeName))t.setAttribute('data-rest','1')}});
