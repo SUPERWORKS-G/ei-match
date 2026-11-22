@@ -2819,7 +2819,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#ffffff;-webkit-font-s
 /* the run record: an entry after the first stands 16 below the one before */
 .cv .lr .e1{margin-top:16px;}
 /* round 45: the run record opens and folds in the page's motion. Its lines and its press rise 8 in .45s as a part; the rows take their new heights in .3s on the same curve (set in recMove), and the list keeps to its end while they do */
-.cv .lr[data-rf="1"] :is(.ll,.lk){animation:cvIn .45s both;}
+/* round 84: the record's lines no longer fade out and in on Show all; the rows' height change is the only movement */
 .act .un{margin-right:-4px;animation:cvIn .45s both;}
 
 /* three sizes, key S (George, 15 Nov, round 26): S, M and L are the strict scale from a sans of 16, 17 and 18; M is the standard. Labels 7/9 u, every line 4/3 u, serif 8/3 u, the big number 16 u, the mark u. The rules above hold L's numbers; these two blocks set S and M */
@@ -2953,7 +2953,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#ffffff;-webkit-font-s
 .lgn .cta{grid-column:11/13;justify-self:end;}
 .pvh{position:sticky;top:0;z-index:2;height:72px;align-items:center;background:var(--bg);box-shadow:inset 0 -2px 0 var(--ink);}
 .pvst{grid-column:2/10;display:flex;align-items:center;gap:24px;min-width:0;}
-.pvq{grid-column:10/13;}
+.pvq{grid-column:10/13;} .pvq .in{text-align:right;} .pvq .in.m{margin:-2px -12px -2px 0;} /* round 85: its text ends on the column line */ /* round 84: a field's text aligns like the column under it */
 .pvu{grid-column:1/2;justify-self:start;}
 .pvm{align-items:start;}
 .pvb{grid-column:1/-1;animation:cvIn .45s both;}
@@ -3834,9 +3834,9 @@ class Component extends DCLogic {
     const clear = () => rows.forEach(e => { e.style.flex = ''; e.style.height = ''; e.style.transition = ''; e.style.overflow = '' })
     this._recStop = () => { this._recTok++; this._recStop = null; clear(); sc.scrollTop = Math.min(sc.scrollTop, sc.scrollHeight - sc.clientHeight) } // Reopen pressed while the rows move: they take their places at once, so its question opens in view
     clear(); const to = rows.map(e => e.getBoundingClientRect().height)
-    rows.forEach((e, i) => { e.style.flex = '0 0 auto'; e.style.height = F.h[i] + 'px' }); if (rec) { rec.style.overflow = 'hidden'; rec.removeAttribute('data-rf') }
+    rows.forEach((e, i) => { e.style.flex = '0 0 auto'; e.style.height = F.h[i] + 'px' }); if (rec) { rec.style.overflow = 'clip'; rec.removeAttribute('data-rf') }
     sc.scrollTop = F.top; void sc.offsetHeight; if (rec) rec.setAttribute('data-rf', '1')
-    rows.forEach((e, i) => { e.style.transition = 'height .3s var(--e)'; e.style.height = to[i] + 'px' })
+    rows.forEach((e, i) => { e.style.transition = 'height .3s var(--s)'; e.style.height = to[i] + 'px' })
     const t0 = performance.now(), pin = () => { if (tok !== this._recTok) return; if (end) sc.scrollTop = sc.scrollHeight
       if (performance.now() - t0 < 340) requestAnimationFrame(pin); else { this._recStop = null; clear(); if (end) sc.scrollTop = sc.scrollHeight; setTimeout(() => { if (tok === this._recTok && rec) rec.removeAttribute('data-rf') }, 150) } }
     requestAnimationFrame(pin)
@@ -4056,7 +4056,7 @@ class Component extends DCLogic {
   sigWrite(step) { clearTimeout(this._swT); this.setState({ sw: step }); this._swT = setTimeout(() => this.setState({ sw: null }), 1900) }
   histFlip = () => { const s = this.state; if (s.back != null) this.now(); this.snd(s.hon ? 'close' : 'open'); this.setState({ hon: !s.hon }) }
   // the short figure under each stop in the foot (round 36): one number and one word of eight letters at most
-  HSH = { received: o => o.fig + ' lines', read: o => o.sub, answered: o => o.fig + ' answers', signed: o => o.fig + ' for engagement', sent: o => o.fig + ' file' }
+  HSH = { received: o => o.fig + ' lines', read: o => o.sub, answered: o => o.fig + ' answers', signed: o => o.fig + ' to engage', sent: o => o.fig + ' file' }
   hgo(i) { const s = this.state, last = this.hlast(); this.unfocus(); if (i <= last && (s.back != null || i < last)) this.look(i); else if (s.back == null) this.go(this.STEPS[this.HSCR[i]]) }
 
   renderVals() {
