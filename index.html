@@ -3211,7 +3211,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#ffffff;-webkit-font-s
   <sc-if value="{{ hwOn }}" hint-placeholder-val="{{ false }}">
     <div class="pv hwp" data-out="{{ hwOut }}" data-st="{{ hw.st }}" data-xr="{{ hw.xr }}" role="dialog" aria-label="How matching works">
       <header class="hd g12"><div class="hdl"><span class="eib">EI</span><span class="gr">Engagement International</span></div><div class="hdr"><button class="pl" onClick="{{ hwFlip }}">Close</button></div></header>
-      <div class="pvs" key="{{ hw.pk }}" onScroll="{{ onScroll }}"><sc-if value="{{ hw.intro }}" hint-placeholder-val="{{ false }}"><div class="pv1 g12"><section class="pvl"><span class="lab hwm"><span>Matching</span></span><h1 class="d s36 qq">How matching works.</h1><div class="figw"><span class="d fig"><span class="fgt">3</span></span><span class="lab"><span>Parts · rules engine, AI module, human sign-off</span></span></div><div class="say"><p class="sig" data-w="1">{{ hw.me }}</p><p class="d s36">A person signs.</p><p class="s17 gr note hw1l">Rules decide what is certain. AI scores the rest. Nothing leaves unsigned.</p></div></section></div><div class="pvn"><button class="cta" data-up="{{ hw.up }}" onClick="{{ hw.next }}"><span>{{ hw.nextT }}</span><span class="cir"><span class="sh"></span></span></button><div class="pvf g12 hwf"><span class="hwfl"><span>Every answer traces to a rule, a score or a signature</span></span><nav class="hwt3" aria-label="Parts"><sc-for list="{{ hw.tabs }}" as="t"><button class="hwtb" aria-current="{{ t.cur }}" aria-disabled="{{ t.off }}" onClick="{{ t.go }}"><span>{{ t.num }}</span><span>{{ t.label }}</span></button></sc-for><span></span></nav></div></div></sc-if><sc-if value="{{ hw.part }}" hint-placeholder-val="{{ false }}"><div class="pv1 g12"><section class="pvl"><div class="lh gn" style="--n:6;"><span style="grid-column:1/-1;">{{ hw.head }}</span><sc-if value="{{ hw.x1 }}" hint-placeholder-val="{{ false }}"><span class="hxw"><button class="pl hxp" aria-disabled="{{ hw.xOff }}" onClick="{{ hw.xGo }}">{{ hw.xT }}</button></span></sc-if></div><sc-for list="{{ hw.items }}" as="r"><div class="pvw" key="{{ r.n }}"><button class="pvk hmk" aria-current="{{ r.cur }}" data-x="{{ r.x }}" onClick="{{ r.go }}"><span>{{ r.n }}</span><span class="s17">{{ r.name }}</span><span>{{ r.tag }}</span></button></div></sc-for><div class="say"><sc-if value="{{ hw.hasInp }}" hint-placeholder-val="{{ false }}"><span class="lab hmil"><span>Inputs</span></span><sc-for list="{{ hw.inp }}" as="x"><p class="s17 note hmi" key="{{ x.k }}"><span>{{ x.k }}</span><span class="gr">{{ x.v }}</span></p></sc-for><span class="hmig"></span></sc-if><p class="s17 gr note">{{ hw.sub }}</p></div></section><section class="pvr" key="{{ hw.rk }}"><div class="lh gn"><span class="hmh"><span>{{ hw.ihead }}</span><span class="gr">{{ hw.tgt }}</span></span></div><sc-for list="{{ hw.det }}" as="d"><div class="{{ d.c }}" key="{{ d.k }}"><span>{{ d.k }}</span><span><sc-for list="{{ d.vs }}" as="t"><span class="{{ t.c }}" key="{{ t.t }}">{{ t.t }}</span></sc-for></span></div></sc-for></section></div><div class="pvn"><button class="cta" data-up="{{ hw.up }}" onClick="{{ hw.next }}"><span>{{ hw.nextT }}</span><span class="cir"><span class="sh"></span></span></button><div class="pvf g12 hwf"><span class="hwfl"><span class="hmp"><button class="pl" aria-disabled="{{ hw.noPrev }}" onClick="{{ hw.prev }}">↑ Previous</button><button class="pl" aria-disabled="{{ hw.noNext }}" onClick="{{ hw.nx }}">↓ Next</button></span><span class="gr">{{ hw.count }}</span></span><nav class="hwt3" aria-label="Parts"><sc-for list="{{ hw.tabs }}" as="t"><button class="hwtb" aria-current="{{ t.cur }}" aria-disabled="{{ t.off }}" onClick="{{ t.go }}"><span>{{ t.num }}</span><span>{{ t.label }}</span></button></sc-for><span></span></nav></div></div></sc-if></div>
+      <div class="pvs" key="{{ hw.pk }}" onScroll="{{ onScroll }}"><sc-if value="{{ hw.intro }}" hint-placeholder-val="{{ false }}"><div class="pv1 g12"><section class="pvl"><span class="lab hwm"><span>Matching</span></span><h1 class="d s36 qq">How matching works.</h1><div class="figw"><span class="d fig"><span class="fgt">3</span></span><span class="lab"><span>Parts · rules engine, AI module, human sign-off</span></span></div><div class="say"><p class="sig" data-w="1">{{ hw.me }}</p><p class="d s36">A person signs.</p><p class="s17 gr note hw1l">Rules decide what is certain. AI scores the rest. Nothing leaves unsigned.</p></div></section></div><div class="pvn"><button class="cta" data-up="{{ hw.up }}" onClick="{{ hw.next }}"><span>{{ hw.nextT }}</span><span class="cir"><span class="sh"></span></span></button><div class="pvf g12 hwf"><span class="hwfl"><span>Every answer traces to a rule, a score or a signature</span></span><nav class="hwt3" aria-label="Parts"><sc-for list="{{ hw.tabs }}" as="t"><button class="hwtb" data-x="{{ t.x }}" aria-current="{{ t.cur }}" aria-disabled="{{ t.off }}" onClick="{{ t.go }}"><span>{{ t.num }}</span><span>{{ t.label }}</span></button></sc-for><span></span></nav></div></div></sc-if><sc-if value="{{ hw.part }}" hint-placeholder-val="{{ false }}"><div class="pv1 g12"><section class="pvl"><div class="lh gn" style="--n:6;"><span style="grid-column:1/-1;">{{ hw.head }}</span><sc-if value="{{ hw.x1 }}" hint-placeholder-val="{{ false }}"><span class="hxw"><sc-if value="{{ hw.clrOn }}" hint-placeholder-val="{{ false }}"><button class="pl hxk" onClick="{{ hw.clr }}">Clear</button></sc-if><button class="pl hxp" aria-disabled="{{ hw.xOff }}" onClick="{{ hw.xGo1 }}"><span>{{ hw.xT }}</span></button></span></sc-if></div><sc-for list="{{ hw.items }}" as="r"><div class="pvw" key="{{ r.n }}"><button class="pvk hmk" aria-current="{{ r.cur }}" data-x="{{ r.x }}" onClick="{{ r.go }}"><span>{{ r.n }}</span><span class="s17">{{ r.name }}</span><span>{{ r.tag }}</span></button></div></sc-for><div class="say"><sc-if value="{{ hw.hasInp }}" hint-placeholder-val="{{ false }}"><span class="lab hmil"><span>Inputs</span></span><sc-for list="{{ hw.inp }}" as="x"><p class="s17 note hmi" key="{{ x.k }}"><span>{{ x.k }}</span><span class="gr">{{ x.v }}</span></p></sc-for><span class="hmig"></span></sc-if><p class="s17 gr note">{{ hw.sub }}</p></div></section><section class="pvr" key="{{ hw.rk }}"><div class="lh gn"><span class="hmh"><span>{{ hw.ihead }}</span><span class="hxq"><span class="gr">{{ hw.tgt }}</span><sc-if value="{{ hw.wOn }}" hint-placeholder-val="{{ false }}"><button class="pl hxv" onClick="{{ hw.wGo }}">{{ hw.wT }}</button></sc-if></span></span></div><sc-for list="{{ hw.det }}" as="d"><div class="{{ d.c }}" key="{{ d.k }}"><span>{{ d.k }}</span><span><sc-for list="{{ d.vs }}" as="t"><span class="{{ t.c }}" key="{{ t.t }}">{{ t.t }}</span></sc-for></span></div></sc-for></section></div><div class="pvn"><button class="cta" data-up="{{ hw.up }}" onClick="{{ hw.next }}"><span>{{ hw.nextT }}</span><span class="cir"><span class="sh"></span></span></button><div class="pvf g12 hwf"><span class="hwfl"><span class="hmp"><button class="pl" aria-disabled="{{ hw.noPrev }}" onClick="{{ hw.prev }}">↑ Previous</button><button class="pl" aria-disabled="{{ hw.noNext }}" onClick="{{ hw.nx }}">↓ Next</button></span><span class="gr">{{ hw.count }}</span></span><nav class="hwt3" aria-label="Parts"><sc-for list="{{ hw.tabs }}" as="t"><button class="hwtb" data-x="{{ t.x }}" aria-current="{{ t.cur }}" aria-disabled="{{ t.off }}" onClick="{{ t.go }}"><span>{{ t.num }}</span><span>{{ t.label }}</span></button></sc-for><span></span></nav></div></div></sc-if></div>
     </div>
   </sc-if>
 
@@ -3325,7 +3325,7 @@ class Component extends DCLogic {
     'r-st': ['Status', 'Where this company stands on EI’s list: Engaged, Planned or Flagged. It is never shown to the client.'],
     'r-same': ['Same company as…', 'For a match that was missed. Find the company on EI’s list this one belongs to, and give a reason. It becomes For engagement, linked by us, with that company’s status. Undone until sign-off.'],
     'r-add': ['Add to EI’s list', 'For a company new to EI. Choose its engagement theme and a reason. It becomes For engagement, with the status Planned, and the addition is recorded. Undone until sign-off.'],
-    how: ['How matching works', 'The matching in full, in technical terms: the rules engine, the AI module, and how the two work together. In part 1, “Run an example” plays a sample holding through the rules, the AI module and the thresholds, and stops on its answer record.', ['M']],
+    how: ['How matching works', 'The matching in full, in technical terms: the rules engine, the AI module, and how the two work together. In part 1, “Run an example” plays a sample holding through the rules, the AI module and the thresholds, and stops on its answer record. The finished example stays: go through it step by step with Previous and Next, or press any marked step.', ['M']],
     't-drop': ['Step 1 · Drop', 'Bring in the client’s holdings file.'],
     't-review': ['Step 2 · Review', 'Answer the companies to review, and check the rest.'],
     't-sign': ['Step 3 · Sign', 'One named person signs. It unlocks when nothing is left to decide.'],
@@ -3626,7 +3626,7 @@ class Component extends DCLogic {
       ['Below the lower threshold', 'Not for engagement', 'confidence < lower threshold', [], 'Not for engagement.', 'Default lower threshold: 0.50. Not for engagement; a person can reverse it until sign-off.'],
       ['Always', 'A person signs', '', ['Test 1 always decides alone. AI never signs: a person does.'], '', 'Sign-off freezes the file, the list version and both thresholds. A later change never rewrites a signed file.']] }]
   HWIN = [['The client’s portfolio: ', 'every fund and every security the client holds.'], ['EI’s list: ', 'every company for engagement, in its latest version.'], ['The issuer record: ', 'who issued each security, and who owns the issuer.']]
-  HW0 = { x1: false, xr: '0', rk: 'r', st: '0', pk: 'hw', intro: false, part: false, items: [], det: [], inp: [], tabs: [] }
+  HW0 = { clrOn: false, wOn: false, x1: false, xr: '0', rk: 'r', st: '0', pk: 'hw', intro: false, part: false, items: [], det: [], inp: [], tabs: [] }
   // round 74, w: three sample holdings, through the whole engine. steps: [part, item, what it finds]; the last gives the answer. rec: the answer record
   HX = [
     { hold: 'Uldmark Shipping · ZZ3585993043', steps: [[1, 0, 'Valid. On to the next step.'], [1, 1, 'One security, one issuer: one company. On to the tests.'], [1, 2, 'Yes: this ISIN is on EI’s list. For engagement, automatically.']],
@@ -3637,26 +3637,45 @@ class Component extends DCLogic {
       rec: ['verdict:    to review', 'confidence: 0.64', 'reason:     Close in name to Fennor Bank;', '            a company, not a fund; no', '            ownership link to it found.', 'evidence:   R1.5 close name · fennor bank', '            type: ordinary share', '            memory: no earlier answer', 'queue:      by stakes · DKK 38 million', 'model:      ei-match 2.3', 'list:       2026.11 · thresholds 0.50/0.90', 'time:       1.9 s'] }]
   HXMS = 1500
   hxGo = () => { const s = this.state; if (!s.hw || (s.hwP !== 1 && !s.hwX) || (s.hwX && s.hwX.play)) return; clearTimeout(this._hxT); this.snd('tick'); const n = s.hwXn + 1; this.setState({ hwXn: n }); this.hxAt(s.hwXn % 3, 0, n) }
-  hxAt(k, j, id) { const e = this.HX[k], st = e.steps[j], last = j === e.steps.length - 1, a = this.state.hwI.slice(); a[st[0] - 1] = st[1]; this.setState({ hwP: st[0], hwI: a, hwX: { k: k, j: j, id: id, play: !last } }); if (!last) this._hxT = setTimeout(() => this.hxAt(k, j + 1, id), this.HXMS) }
+  // round 75, o: a finished example stays open. hwX: k, j, r (the furthest step passed), id, play, w (its ordinary words shown)
+  hxAt(k, j, id) { const e = this.HX[k], st = e.steps[j], last = j === e.steps.length - 1, a = this.state.hwI.slice(); a[st[0] - 1] = st[1]; this.setState({ hwP: st[0], hwI: a, hwX: { k: k, j: j, r: j, id: id, play: !last, w: false } }); if (!last) this._hxT = setTimeout(() => { const X = this.state.hwX; if (X && X.id === id && X.play) this.hxAt(k, j + 1, id) }, this.HXMS) }
   hxEnd() { clearTimeout(this._hxT); if (this.state.hwX) this.setState({ hwX: null }) }
-  hwGo(p) { if (!true) { const sc = document.querySelector('.hwp .pvs'); if (sc && p > 0) { this.snd('tick'); sc.scrollTo({ top: sc.clientHeight, behavior: window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }) } return } if (p === this.state.hwP) return; this.hxEnd(); this.snd('tick'); this.setState({ hwP: p }) }
-  hwPick(i) { this.hxEnd(); const s = this.state, P = s.hwP; if (P < 1 || i < 0 || i >= this.HW[P - 1].items.length || i === s.hwI[P - 1]) return; this.snd('tick'); const a = s.hwI.slice(); a[P - 1] = i; this.setState({ hwI: a }) }
-  hwStep(d) { const s = this.state; if (s.hwP > 0) this.hwPick(s.hwI[s.hwP - 1] + d) }
+  hxLast() { const X = this.state.hwX; return X ? this.HX[X.k].steps.length - 1 : -1 }
+  hxHere(s) { const X = s.hwX; if (!X || s.hwP < 1) return -1; const st = this.HX[X.k].steps; for (let j = 0; j <= X.r; j++) if (st[j][0] === s.hwP && st[j][1] === s.hwI[s.hwP - 1]) return j; return -1 }
+  hxNear(d) { const s = this.state, X = s.hwX, st = this.HX[X.k].steps, at = s.hwP * 100 + s.hwI[s.hwP - 1]; let t = -1; for (let j = 0; j <= Math.min(X.r + 1, st.length - 1); j++) { const q = st[j][0] * 100 + st[j][1]; if (d > 0 ? q > at && t < 0 : q < at && j <= X.r) t = j } return t }
+  hxTouch(p) { const X = this.state.hwX; return X && this.HX[X.k].steps.some((st, j) => j <= X.r && st[0] === p) ? '1' : '0' }
+  hxPause() { clearTimeout(this._hxT); const X = this.state.hwX; if (X && X.play) this.setState({ hwX: Object.assign({}, X, { play: false }) }) }
+  hxCarry() { const X = this.state.hwX; if (!X || X.play || X.r >= this.hxLast()) return; this.snd('tick'); clearTimeout(this._hxT); this.hxAt(X.k, X.r + 1, X.id) }
+  hxPress = () => { const X = this.state.hwX; if (X && X.play) { this.snd('tick'); this.hxPause(); return } if (X && X.r < this.hxLast()) { this.hxCarry(); return } this.hxGo() }
+  hxView(j) { const s = this.state, X = s.hwX; if (!X || j < 0 || j > this.hxLast()) return; clearTimeout(this._hxT); const st = this.HX[X.k].steps[j], a = s.hwI.slice(); a[st[0] - 1] = st[1]; if (X.play || j !== this.hxHere(s)) this.snd('tick'); this.setState({ hwP: st[0], hwI: a, hwX: Object.assign({}, X, { j: j, r: Math.max(X.r, j), play: false }) }) }
+  hwGo(p) { if (!true) { const sc = document.querySelector('.hwp .pvs'); if (sc && p > 0) { this.snd('tick'); sc.scrollTo({ top: sc.clientHeight, behavior: window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }) } return } if (p === this.state.hwP) return
+    const X = this.state.hwX; if (X) { const st = this.HX[X.k].steps; for (let j = 0; j <= X.r; j++) if (st[j][0] === p) { this.hxView(j); return } this.hxPause() } this.snd('tick'); this.setState({ hwP: p }) }
+  hwPick(i) { const s = this.state, P = s.hwP; if (P < 1 || i < 0 || i >= this.HW[P - 1].items.length) return
+    if (s.hwX) { const st = this.HX[s.hwX.k].steps; for (let j = 0; j <= s.hwX.r; j++) if (st[j][0] === P && st[j][1] === i) { this.hxView(j); return } this.hxPause() }
+    if (i === s.hwI[P - 1]) return; this.snd('tick'); const a = s.hwI.slice(); a[P - 1] = i; this.setState({ hwI: a }) }
+  hwStep(d) { const s = this.state; if (s.hwP < 1) return; if (!s.hwX) { this.hwPick(s.hwI[s.hwP - 1] + d); return } const h = this.hxHere(s); if (h >= 0) { this.hxView(h + d); return } const t = this.hxNear(d); if (t >= 0) this.hxView(t) }
   hwVals() { const s = this.state, hasB = true, P = s.hwP, part = hasB && P > 0 ? this.HW[P - 1] : null, top = 0
     const v = { st: P === 0 ? '1' : '0', pk: 'hw' + P, intro: P === 0, part: !!part, me: this.me(), up: P === 3 ? '1' : '0', nextT: P === 3 ? 'Top' : 'Part ' + (P + 1) + ' · ' + this.HW[P].t, next: () => this.hwGo(P === 3 ? top : P + 1),
-      tabs: ['Rules', 'AI module', 'Together'].map((t, k) => ({ num: '0' + (k + 1), label: t, cur: part && P === k + 1 ? 'step' : 'false', off: hasB ? 'false' : 'true', go: () => { if (hasB) this.hwGo(k + 1) } })), items: [], det: [], inp: [] }
+      tabs: ['Rules', 'AI module', 'Together'].map((t, k) => ({ x: this.hxTouch(k + 1), num: '0' + (k + 1), label: t, cur: part && P === k + 1 ? 'step' : 'false', off: hasB ? 'false' : 'true', go: () => { if (hasB) this.hwGo(k + 1) } })), items: [], det: [], inp: [] }
     if (!part) return v
     const i = s.hwI[P - 1], it = part.items[i], T = (t, c) => ({ t: t, c: c || 's17' }), n = part.items.length
     v.head = 'Part ' + P + ' of 3 · ' + part.t; v.sub = part.sub; v.hasInp = P === 1; v.inp = P === 1 ? this.HWIN.map(x => ({ k: x[0], v: x[1] })) : []
     v.items = part.items.map((x, k) => ({ n: P + '.' + (k + 1), name: x[0], tag: x[1], cur: k === i ? 'true' : 'false', go: () => this.hwPick(k) }))
     v.ihead = P + '.' + (i + 1) + ' · ' + it[0]; v.tgt = P > 1 ? 'Design targets' : ''
     if (it[2]) v.det.push({ k: 'Rule', vs: [T(it[2], 'hmc')] }); if (it[3].length) v.det.push({ k: 'In words', vs: it[3].map(x => T(x)) }); if (it[4]) v.det.push({ k: 'Gives', vs: [T(it[4])] }); v.det.push({ k: 'Spec', vs: [T(it[5])] })
-    const X = s.hwX && this.HX[s.hwX.k].steps[s.hwX.j][0] === P ? s.hwX : null, ex = X ? this.HX[X.k] : null, xs = ex ? ex.steps[X.j] : null, xEnd = ex && X.j === ex.steps.length - 1; v.det.forEach(d => { d.c = 'lr kv gn' })
-    if (ex) v.det = xEnd ? [{ k: 'Record', c: 'lr kv gn hxd', vs: [T(ex.rec.join('\n'), 'hmc hxc')] }] : v.det.filter(d => d.k === 'Gives' || d.k === (it[2] ? 'Rule' : 'In words')) // during a run: the test's rule (Group: its words), what it gives, the example; In words and Spec come back at rest
+    const X0 = s.hwX, hj = this.hxHere(s), X = X0 && hj >= 0 && !X0.w ? X0 : null, ex = X ? this.HX[X.k] : null, xs = ex ? ex.steps[hj] : null, xEnd = ex && hj === ex.steps.length - 1; v.det.forEach(d => { d.c = 'lr kv gn' })
+    if (ex) v.det = xEnd ? [{ k: 'Record', c: 'lr kv gn hxd', vs: [T(ex.rec.join('\n'), 'hmc hxc')] }] : v.det.filter(d => d.k === 'Gives' || d.k === (it[2] ? 'Rule' : 'In words')) // the step on the path: its rule (Group: its words), what it gives, the example; "In words" brings the rest
     if (ex) v.det.push({ k: 'Example ' + (X.k + 1) + ' of 3', c: 'lr kv gn hxr', vs: [T(ex.hold), T(xs[2], 's17 hxb')] })
-    v.items.forEach((r, k) => { r.x = ex && k === xs[1] ? (X.play ? '1' : '2') : '0' })
-    v.x1 = P === 1 || !!ex; v.xr = ex ? '1' : '0'; v.rk = ex ? 'x' + X.id + '-' + X.j : 'r'; v.xOff = X && X.play ? 'true' : 'false'; v.xT = s.hwXn - (X && X.play ? 1 : 0) > 0 ? 'Run another' : 'Run an example'; v.xGo = this.hxGo
-    v.count = (i + 1) + ' of ' + n; v.noPrev = i === 0 ? 'true' : 'false'; v.noNext = i === n - 1 ? 'true' : 'false'; v.prev = () => this.hwStep(-1); v.nx = () => this.hwStep(1); return v }
+    const E0 = X0 ? this.HX[X0.k].steps : null, xl = E0 ? E0.length - 1 : -1
+    v.items.forEach((r, k) => { let m = -1; if (E0) for (let j = 0; j <= X0.r; j++) if (E0[j][0] === P && E0[j][1] === k) m = j; r.x = m < 0 ? '0' : m === hj ? (m === xl ? '2' : '1') : 'm' })
+    v.x1 = P === 1 || !!X0; v.xr = X0 ? '1' : '0'; v.rk = X0 ? 'x' + X0.id + '-' + P + '-' + i + (X0.w ? 'w' : '') : 'r'; v.xOff = 'false'; v.xT = X0 && X0.play ? 'Pause' : X0 && X0.r < xl ? 'Carry on' : s.hwXn > 0 ? 'Run another' : 'Run an example'; v.xGo = this.hxPress
+    v.clrOn = !!X0; v.clr = () => { this.snd('tick'); this.hxEnd() }
+    v.wOn = !!X0 && !X0.play && hj >= 0; v.wT = X0 && X0.w ? 'The example' : 'In words'; v.wGo = () => { const Y = this.state.hwX; if (Y) { this.snd('tick'); this.setState({ hwX: Object.assign({}, Y, { w: !Y.w }) }) } }
+    v.count = (i + 1) + ' of ' + n; v.noPrev = i === 0 ? 'true' : 'false'; v.noNext = i === n - 1 ? 'true' : 'false'; v.prev = () => this.hwStep(-1); v.nx = () => this.hwStep(1)
+    if (X0) { v.count = hj >= 0 ? 'Step ' + (hj + 1) + ' of ' + (xl + 1) : 'Not on the example’s path'; v.noPrev = (hj >= 0 ? hj === 0 : this.hxNear(-1) < 0) ? 'true' : 'false'; v.noNext = (hj >= 0 ? hj === xl : this.hxNear(1) < 0) ? 'true' : 'false' }
+    this._xGo = v.xGo; v.xGo1 = this.hxOne; return v }
+  // round 75, d: two presses on the press within 250 ms count as one (two within about 50 ms started a second example)
+  hxOne = () => { const t = performance.now(); if (t - (this._hx0 || -1e9) < 250) return; this._hx0 = t; if (this._xGo) this._xGo() }
   totals() {
     let cov = 0, not = 0, chg = 0, dby = 0
     Coverage.companies.forEach(c => { const r = this.result(c), d = this.state.dec[c.id]; if (r === 'covered') cov++; else if (r === 'not') not++; if (d && d.against) chg++; if (d && d.nosug) dby++ })
@@ -3824,6 +3843,7 @@ class Component extends DCLogic {
     if ((tag === 'INPUT' || tag === 'TEXTAREA') && !e.metaKey && !e.ctrlKey && !e.altKey) { const k = e.key, n = k === ' ' ? 'space' : k === 'Enter' ? 'enter' : k === 'Backspace' || k === 'Delete' ? 'back' : k === 'Tab' ? 'tab' : k.length === 1 ? 'key' : null; if (n) this.snd(n) } // round 51, c
     if (!s.ok || e.metaKey || e.ctrlKey || e.altKey || tag === 'INPUT' || tag === 'TEXTAREA') return
     if (s.cl === 'in') return
+    if (s.hw && s.hwX && e.key === ' ' && (s.hwX.play || s.hwX.r < this.hxLast())) { e.preventDefault(); const fe = document.activeElement; if (fe && fe.closest && fe.closest('.hxw')) fe.blur(); if (s.hwX.play) { this.snd('tick'); this.hxPause() } else this.hxCarry(); return } // round 75, o: space acts on the run, not on a focused button
     if (s.hw && s.hwP > 0 && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) { e.preventDefault(); this.hwStep(e.key === 'ArrowDown' ? 1 : -1); return }
     if (s.hw && s.hwX && e.key === 'Escape') { e.preventDefault(); this.hxEnd(); return } // round 73, x: Esc ends a run first
     if (s.hw) { if (e.key === 'Escape' || e.key === 'Backspace' || e.key === 'm' || e.key === 'M') { e.preventDefault(); this.hwFlip() } return }
@@ -4190,6 +4210,53 @@ class Component extends DCLogic {
 .rcm{display:block;margin-top:8px;}
 /* the record keeps the height of its three lines, so a shorter entry moves no row (Sign to Signed) */
 .lr.kv[data-ex="record"]>:last-child{min-height:calc(3 * var(--ln, 24px));}
+</style>
+<style>/* round 75, o: a finished example stays open. Passed rows and touched parts: number in pen blue */
+.hwp .hxw{gap:24px;}
+.hwp .hxp{display:inline-grid;justify-items:end;align-content:center;} /* the press keeps the width of its longest words, so nothing slides under the pointer as its words change */
+.hwp .hxp::before{content:'Run an example';grid-area:1/1;visibility:hidden;height:0;overflow:hidden;}
+.hwp .hxp>span{grid-area:1/1;}
+.hwp .hxq{display:flex;gap:24px;}
+.hwp .hmk[data-x="m"]>:first-child,.hwp .hwtb[data-x="1"]>:first-child{color:var(--stp);}
+</style>
+<style>/* round 75, h: the hover grey, one named value. White #fafafa; the same step from the ground on Stone, the grey Fill and dark */
+.cv{--hov:#fafafa;}
+.cv[data-theme="dark"]{--hov:#050505;}
+.cv[data-blocks="1"]:not([data-theme="dark"]){--hov:#eae8e5;}
+.cv[data-blocks="1"][data-gr="1"]:not([data-theme="dark"]){--hov:#e2e2e2;}
+.pv:is([data-mo="1"],[data-mo="2"]) :is(.pv1,.pvn),.pv:is([data-mo="1"],[data-mo="2"]):not([data-dn="1"]) :is(.hd,.exb){--hov:#eae8e5;}
+.cv[data-blocks="1"]:not([data-theme="dark"]) .pv:is([data-mo="1"],[data-mo="2"]) :is(.pv1,.pvn),.cv[data-blocks="1"]:not([data-theme="dark"]) .pv:is([data-mo="1"],[data-mo="2"]):not([data-dn="1"]) :is(.hd,.exb){--hov:#fafafa;}
+.hwp[data-st="1"]{--hov:#eae8e5;}
+.cv[data-blocks="1"]:not([data-theme="dark"]) .hwp[data-st="1"]{--hov:#fafafa;}
+.pl:hover{background:var(--hov);box-shadow:0 0 0 8px var(--hov);}
+.tp:hover,.q:hover{background:var(--hov);}
+.fp:hover{background:var(--hov);box-shadow:0 0 0 8px var(--hov);}
+.fp[aria-pressed="true"]:hover{background:var(--hov);}
+.st:hover>span:last-child{background:var(--hov);box-shadow:0 0 0 8px var(--hov);}
+.pvk:not([aria-current="true"]):hover{background:var(--hov);box-shadow:-12px 0 0 var(--hov),12px 0 0 var(--hov);}
+.row:not([data-cur="1"]):hover::before,.lr.go:hover::before{background:var(--hov);}
+</style>
+<style>/* round 76, k: dark's hover, as visible on black as #fafafa on white (by eye) */
+.cv[data-theme="dark"]{--hov:#0f0f0f;}
+</style>
+<style>/* round 76, b: a row's fill holds the hover grey at rest, so leaving a row only fades it (no flash); round 74's .2s ease */
+.row::before,.lr.go::before{background:var(--hov);}
+.row[data-cur="1"]::before{background:var(--sel);}
+</style>
+<style>/* round 76, u: one grey for what a person presses or fills in; a line under words in the words' colour */
+.cv,.cv[data-theme="dark"],.cv[data-blocks="1"]:not([data-theme="dark"]),.cv[data-blocks="1"][data-gr="1"]:not([data-theme="dark"]),.pv:is([data-mo="1"],[data-mo="2"]) :is(.pv1,.pvn),.pv:is([data-mo="1"],[data-mo="2"]):not([data-dn="1"]) :is(.hd,.exb),.cv[data-blocks="1"]:not([data-theme="dark"]) .pv:is([data-mo="1"],[data-mo="2"]) :is(.pv1,.pvn),.cv[data-blocks="1"]:not([data-theme="dark"]) .pv:is([data-mo="1"],[data-mo="2"]):not([data-dn="1"]) :is(.hd,.exb),.hwp[data-st="1"],.cv[data-blocks="1"]:not([data-theme="dark"]) .hwp[data-st="1"]{--sel:var(--hov);}
+.cv .lk,.cv .lk:hover,.cv .s3t>.lk{text-decoration-color:currentColor;}
+.cv .lk:not(:disabled):hover{color:var(--ink);}
+</style>
+<style>/* round 76, t: Design targets and In words on one baseline */
+.hwp .hmh,.hwp .hxq{align-items:baseline;}
+</style>
+<style>/* round 76, p: the press's pill hugs its words; the press keeps its width */
+.hwp .hxp:hover{background:none;box-shadow:none;}
+.hwp .hxp>span{position:relative;isolation:isolate;}
+.hwp .hxp>span::before{content:'';position:absolute;z-index:-1;left:-8px;right:-8px;top:calc(50% - 20px);bottom:calc(50% - 20px);border-radius:999px;background:transparent;transition:background-color .2s ease;}
+.hwp .hxp:hover>span::before{background:var(--hov);}
+.cv[data-exon="1"] .hwp .hxp:hover>span::before{background:transparent;}
 </style>
 <style>/* round 74, w: the answer record, in code type on the Stone block, as written */
 .hwp .hmc.hxc{display:block;white-space:pre;overflow:hidden;}
