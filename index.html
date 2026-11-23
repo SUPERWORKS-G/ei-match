@@ -3927,6 +3927,7 @@ class Component extends DCLogic {
     if (s.cl === 'in') return
     if (s.hw && s.hwX && e.key === ' ' && (s.hwX.play || s.hwX.r < this.hxLast())) { e.preventDefault(); const fe = document.activeElement; if (fe && fe.closest && fe.closest('.hxw')) fe.blur(); if (s.hwX.play) { this.snd('tick'); this.hxPause() } else this.hxCarry(); return } // round 75, o: space acts on the run, not on a focused button
     if (s.hw && (s.hwP > 0 || e.key === 'ArrowDown') && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) { e.preventDefault(); this.hwStep(e.key === 'ArrowDown' ? 1 : -1); return }
+    if (s.hw && !s.hwOut && e.key === 'Enter' && !(document.activeElement && document.activeElement.closest && document.activeElement.closest('.hwp button'))) { e.preventDefault(); this.hwGo(s.hwP === 3 ? 0 : s.hwP + 1); return } // round 104: Enter is the primary
     if (s.hw && s.hwX && e.key === 'Escape') { e.preventDefault(); this.hxEnd(); return } // round 73, x: Esc ends a run first
     if (s.hw) { if (e.key === 'Escape' || e.key === 'Backspace' || e.key === 'm' || e.key === 'M') { e.preventDefault(); this.hwFlip() } return }
     if (s.pv && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) { e.preventDefault(); this.pvArrow(e.key === 'ArrowDown' ? 1 : -1); return }
